@@ -1,28 +1,30 @@
 package org.usfirst.frc.team5554.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import systems.subsystems.MechSys;
+import systems.RobotManager;
+import systems.subsystems.DiffDriveTrain;
 
 /**
  *
  */
 public class TestAutonomus extends Command {
 	
-	MechSys test;
+	DiffDriveTrain testAuto;
 
     public TestAutonomus() 
     {
-    	super("Timeout" , 1);
-    	test = new MechSys(4);
+    	super("Timeout" , 3);	
+    	testAuto = (DiffDriveTrain)RobotManager.GetDriveTrain();
+    	requires(testAuto);
     }
 
     protected void initialize() 
     {
-    	test.Activate(0.5);
     }
     
     protected void execute()
     {
+    	testAuto.ArcadeDrive(0.2, 0);
     }
 
     protected boolean isFinished() 
@@ -37,8 +39,9 @@ public class TestAutonomus extends Command {
     	}
     }
 
-    protected void end() {
-    	test.Activate(0);
+    protected void end() 
+    {
+    	testAuto.ArcadeDrive(0, 0);
     }
 
     protected void interrupted() {

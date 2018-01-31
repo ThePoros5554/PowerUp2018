@@ -3,6 +3,7 @@
 	<name>PowerUp2018</name>
 	<comment></comment>
 	<projects>
+		<project>PorosLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

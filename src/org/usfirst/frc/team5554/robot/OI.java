@@ -26,13 +26,13 @@ public class OI
 
 	public OI()
 	{
-		climbButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.climbButton);
-		elevatorButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.elevatorButton);
-		feederButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.feederButton);
+		climbButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.CLIMBBUTTON);
+		elevatorButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.ELEVATORBUTTON);
+		feederButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDERBUTTON);
 		
-		climbActivate = new ActivateMechSys(RobotMap.climbKey, RobotMap.climbKey);
-		elevatorActivate = new ActivateMechSys(RobotMap.elevatorKey, RobotMap.elevatorKey);
-		feederActivate = new ActivateMechSys(RobotMap.feederKey, RobotMap.feederKey);
+		climbActivate = new ActivateMechSys(RobotMap.CLIMBKEY, RobotMap.CLIMBKEY);
+		elevatorActivate = new ActivateMechSys(RobotMap.ELEVATORKEY, RobotMap.ELEVATORKEY);
+		feederActivate = new ActivateMechSys(RobotMap.FEEDERKEY, RobotMap.FEEDERKEY);
 		
 		climbButton.whileHeld(climbActivate);
 		elevatorButton.whileHeld(elevatorActivate);

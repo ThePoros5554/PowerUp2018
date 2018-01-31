@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5554.robot;
 
+import edu.wpi.first.wpilibj.SPI;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -15,22 +17,24 @@ package org.usfirst.frc.team5554.robot;
  */
 public class RobotMap 
 {
-	public static int frontLeftMotor = 0;
-	public static int frontRigtMotor = 1;
-	public static int rearLeftMotor = 2;
-	public static int rearRightMotor = 3;
-	public static int elevator = 7;
-	public static int climb = 5;
-	public static int feeder = 6;
+	public static int FRONTLEFTMOTOR = 8;
+	public static int FRONTRIGHTMOTOR = 9;
+	public static int REARLEFTMOTOR = 2;
+	public static int REARRIGHTMOTOR = 3;
+	public static int ELEVATOR = 4;
+	public static int CLIMB = 5;
+	public static int FEEDER = 6;
 	
-	public static String elevatorKey = "elevator";
-	public static String climbKey = "climb";
-	public static String feederKey = "feeder";
+	public static String ELEVATORKEY = "elevator";
+	public static String CLIMBKEY = "climb";
+	public static String FEEDERKEY = "feeder";
+	public static String TGDS_LEFTAUTONOMUS = "TGDS_LeftAutonomus";
 
-	public static int elevatorButton = 1;
-	public static int climbButton = 1;
-	public static int feederButton = 1;
-
+	public static int ELEVATORBUTTON = 1;
+	public static int CLIMBBUTTON = 1;
+	public static int FEEDERBUTTON = 1;
+	
+    public static final SPI.Port GYRO_PORT  = SPI.Port.kOnboardCS0;
 
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
