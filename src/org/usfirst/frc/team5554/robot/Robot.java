@@ -108,7 +108,6 @@ public class Robot extends TimedRobot
 	{
 		this.teleopStartTime = RobotController.getFPGATime();
 		SmartDashboard.putBoolean("GameEnding", false);
-		System.out.println("teleopinit");
 	}
 
 	@Override
