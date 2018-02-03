@@ -17,13 +17,14 @@ import edu.wpi.first.wpilibj.SPI;
  */
 public class RobotMap 
 {
-	public static int FRONTLEFTMOTOR = 8;
-	public static int FRONTRIGHTMOTOR = 9;
-	public static int REARLEFTMOTOR = 2;
-	public static int REARRIGHTMOTOR = 3;
-	public static int ELEVATOR = 4;
-	public static int CLIMB = 5;
-	public static int FEEDER = 6;
+	public static int FRONTLEFTMOTORPORT = 8;
+	public static int REARLEFTMOTORPORT = 2;
+	public static int FRONTRIGHTMOTORPORT = 9;
+	public static int REARRIGHTMOTORPORT = 3;
+	
+	public static int ELEVATORPORT = 4;
+	public static int CLIMBPORT = 5;
+	public static int FEEDERPORT = 6;
 	
 	public static String ELEVATORKEY = "elevator";
 	public static String CLIMBKEY = "climb";

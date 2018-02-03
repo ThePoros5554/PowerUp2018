@@ -55,8 +55,6 @@ public class LeftAutonomus extends CommandGroup
     
    	public void LL()
     {
-	   	addParallel(new TimedGyroDrive(RobotMap.TGDS_LEFTAUTONOMUS, 0.03, 3));
-	   	addParallel( new ActivateMechSys(RobotMap.ELEVATORKEY), 3);
     }
     public void LR()
     {
