@@ -55,6 +55,8 @@ public class LeftAutonomus extends CommandGroup
     
    	public void LL()
     {
+   		addSequential(new TestAutonomus());
+	   	//addParallel(command);
     }
     public void LR()
     {

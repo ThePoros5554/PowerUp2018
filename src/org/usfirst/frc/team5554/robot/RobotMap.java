@@ -17,23 +17,32 @@ import edu.wpi.first.wpilibj.SPI;
  */
 public class RobotMap 
 {
-	public static int FRONTLEFTMOTORPORT = 8;
+	public static int REARRIGHTMOTORPORT = 0;
+	public static int FRONTRIGHTMOTORPORT = 1;
 	public static int REARLEFTMOTORPORT = 2;
-	public static int FRONTRIGHTMOTORPORT = 9;
-	public static int REARRIGHTMOTORPORT = 3;
-	
+	public static int FRONTLEFTMOTORPORT = 3;
+
 	public static int ELEVATORPORT = 4;
-	public static int CLIMBPORT = 5;
-	public static int FEEDERPORT = 6;
+	public static int RIGHTRAMPPORT = 5;
+	public static int CLIMBPORT = 6;
+	public static int LEFTRAMPPORT = 7;
+	public static int FEEDERAXISPORT = 8;
+	public static int FEEDERPORT = 9;
 	
 	public static String ELEVATORKEY = "elevator";
+	public static String RIGHTRAMPKEY = "rightRamp";
 	public static String CLIMBKEY = "climb";
+	public static String LEFTRAMPKEY = "leftRamp";
+	public static String FEEDERAXISKEY = "feederAxis";
 	public static String FEEDERKEY = "feeder";
 	public static String TGDS_LEFTAUTONOMUS = "TGDS_LeftAutonomus";
 
-	public static int ELEVATORBUTTON = 1;
-	public static int CLIMBBUTTON = 1;
-	public static int FEEDERBUTTON = 1;
+	public static int ELEVATORBUTTON = 7;
+	public static int RIGHTRAMPBUTTON = 8;
+	public static int CLIMBBUTTON = 9;
+	public static int LEFTRAMPBUTTON = 10;
+	public static int FEEDERAXISBUTTON =11;
+	public static int FEEDERBUTTON = 12;
 	
     public static final SPI.Port GYRO_PORT  = SPI.Port.kOnboardCS0;
 
