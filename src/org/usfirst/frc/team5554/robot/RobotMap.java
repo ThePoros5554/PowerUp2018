@@ -17,32 +17,40 @@ import edu.wpi.first.wpilibj.SPI;
  */
 public class RobotMap 
 {
-	public static int REARRIGHTMOTORPORT = 0;
-	public static int FRONTRIGHTMOTORPORT = 1;
-	public static int REARLEFTMOTORPORT = 2;
-	public static int FRONTLEFTMOTORPORT = 3;
+	public final static int REARRIGHTMOTORPORT = 0;
+	public final static int FRONTRIGHTMOTORPORT = 1;
+	public final static int REARLEFTMOTORPORT = 2;
+	public final static int FRONTLEFTMOTORPORT = 3;
 
-	public static int ELEVATORPORT = 4;
-	public static int RIGHTRAMPPORT = 5;
-	public static int CLIMBPORT = 6;
-	public static int LEFTRAMPPORT = 7;
-	public static int FEEDERAXISPORT = 8;
-	public static int FEEDERPORT = 9;
+	public final static int ELEVATORPORT = 4;
+	public final static int RIGHTRAMPPORT = 5;
+	public final static int CLIMBPORT = 6;
+	public final static int LEFTRAMPPORT = 7;
+	public final static int FEEDERAXISPORT = 8;
+	public final static int FEEDERPORT = 9;
 	
-	public static String ELEVATORKEY = "elevator";
-	public static String RIGHTRAMPKEY = "rightRamp";
-	public static String CLIMBKEY = "climb";
-	public static String LEFTRAMPKEY = "leftRamp";
-	public static String FEEDERAXISKEY = "feederAxis";
-	public static String FEEDERKEY = "feeder";
-	public static String TGDS_LEFTAUTONOMUS = "TGDS_LeftAutonomus";
+	public final static String ELEVATORKEY = "elevator";
+	public final static String RIGHTRAMPKEY = "rightRamp";
+	public final static String CLIMBKEY = "climb";
+	public final static String LEFTRAMPKEY = "leftRamp";
+	public final static String FEEDERAXISKEY = "feederAxis";
+	public final static String FEEDERKEY = "feeder";
+	public final static String ONLYROTATEAXISKEY = "onlyRotateAxis";
+	public final static String ONLYSPEEDKEY = "onlySpeed";
+	public final static String TGDS_LEFTAUTONOMUS = "TGDS_LeftAutonomus";
 
-	public static int ELEVATORBUTTON = 7;
-	public static int RIGHTRAMPBUTTON = 8;
-	public static int CLIMBBUTTON = 9;
-	public static int LEFTRAMPBUTTON = 10;
-	public static int FEEDERAXISBUTTON =11;
-	public static int FEEDERBUTTON = 12;
+	public final static int ELEVATORBUTTON = 7;
+	public final static int RIGHTRAMPBUTTON = 8;
+	public final static int CLIMBBUTTON = 9;
+	public final static int LEFTRAMPBUTTON = 10;
+	public final static int FEEDERAXISBUTTON =11;
+	public final static int FEEDERBUTTON = 12;
+	public final static int ONLYROTATEAXISBUTTON = 1;
+	public final static int ONLYSPEEDBUTTON = 2;
+	
+	public final static int SPEEDAXIS = 0;
+	public final static int ROTATEAXIS = 1;
+	public final static int TWISTAXIS = 2;
 	
     public static final SPI.Port GYRO_PORT  = SPI.Port.kOnboardCS0;
 

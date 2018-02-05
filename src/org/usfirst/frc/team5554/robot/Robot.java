@@ -48,25 +48,25 @@ public class Robot extends TimedRobot
 	@Override
 	public void robotInit() 
 	{
-//		this.elevator = new MechSys(RobotMap.ELEVATORPORT);
-//		this.rightRamp = new MechSys(RobotMap.RIGHTRAMPPORT);
-//		this.climb = new MechSys(RobotMap.CLIMBPORT);
-//		this.leftRamp = new MechSys(RobotMap.LEFTRAMPPORT);
-//		this.feederAxis = new MechSys(RobotMap.FEEDERAXISPORT);
-//		this.feeder = new MechSys(RobotMap.FEEDERPORT);
-//		
+		this.elevator = new MechSys(RobotMap.ELEVATORPORT);
+		this.rightRamp = new MechSys(RobotMap.RIGHTRAMPPORT);
+		this.climb = new MechSys(RobotMap.CLIMBPORT);
+		this.leftRamp = new MechSys(RobotMap.LEFTRAMPPORT);
+		this.feederAxis = new MechSys(RobotMap.FEEDERAXISPORT);
+		this.feeder = new MechSys(RobotMap.FEEDERPORT);
+		
 		this.frontLeftMotor = new Victor(RobotMap.FRONTLEFTMOTORPORT);
 		this.rearLeftMotor = new Victor(RobotMap.REARLEFTMOTORPORT);
 		this.frontRightMotor = new Victor(RobotMap.FRONTRIGHTMOTORPORT);
 		this.rearRightMotor = new Victor(RobotMap.REARRIGHTMOTORPORT);
-//		this.gyro = new ADXRS450_Gyro(RobotMap.GYRO_PORT);
-//		
-//		RobotManager.AddSubsystem(RobotMap.ELEVATORKEY, this.elevator);
-//		RobotManager.AddSubsystem(RobotMap.RIGHTRAMPKEY, this.rightRamp);
-//		RobotManager.AddSubsystem(RobotMap.CLIMBKEY, this.climb);
-//		RobotManager.AddSubsystem(RobotMap.LEFTRAMPKEY, this.leftRamp);
-//		RobotManager.AddSubsystem(RobotMap.FEEDERAXISKEY, this.feederAxis);
-//		RobotManager.AddSubsystem(RobotMap.FEEDERKEY, this.feeder);
+		this.gyro = new ADXRS450_Gyro(RobotMap.GYRO_PORT);
+		
+		RobotManager.AddSubsystem(RobotMap.ELEVATORKEY, this.elevator);
+		RobotManager.AddSubsystem(RobotMap.RIGHTRAMPKEY, this.rightRamp);
+		RobotManager.AddSubsystem(RobotMap.CLIMBKEY, this.climb);
+		RobotManager.AddSubsystem(RobotMap.LEFTRAMPKEY, this.leftRamp);
+		RobotManager.AddSubsystem(RobotMap.FEEDERAXISKEY, this.feederAxis);
+		RobotManager.AddSubsystem(RobotMap.FEEDERKEY, this.feeder);
 		
 		RobotManager.AddSpeed(RobotMap.ELEVATORKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.RIGHTRAMPKEY, (double) 0);
@@ -79,9 +79,9 @@ public class Robot extends TimedRobot
 		RobotManager.SetDriveJoy(0);
 		
 		RobotManager.SetDriveTrain(this.frontLeftMotor,  this.rearLeftMotor, this.frontRightMotor,  this.rearRightMotor, MechDriveTypes.CartesianDrive);
-		RobotManager.SetSpeedAxis(0);
-		RobotManager.SetRotateAxis(1);
-		RobotManager.SetTwistAxis(2);
+		RobotManager.SetSpeedAxis(RobotMap.SPEEDAXIS);
+		RobotManager.SetRotateAxis(RobotMap.ROTATEAXIS);
+		RobotManager.SetTwistAxis(RobotMap.TWISTAXIS);
 		RobotManager.GetDriveTrain().SetMinSpeedValue(0.1);
 		RobotManager.GetDriveTrain().SetMinRotateValue(0.1);
 		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMinTwistValue(0.15);
@@ -99,10 +99,7 @@ public class Robot extends TimedRobot
 		autoChooser.addObject("CenterAutonomus", new CenterAutonomus());
 		autoChooser.addObject("RightAutonomus", new RightAutonomus());
 		SmartDashboard.putData("Autonomus chooser", autoChooser);
-		SmartDashboard.putBoolean("GameEnding", false);
-		
-		SmartDashboard.putBoolean("reversed", false);
-		
+		SmartDashboard.putBoolean("GameEnding", false);	
 	}
 
 	@Override
@@ -118,7 +115,6 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousInit() 
 	{
-		RobotManager.GetDriveTrain().SetIsReversed(SmartDashboard.getBoolean("reversed", true));
 		this.autonomusCommand = autoChooser.getSelected();
 		this.autonomusCommand.start();
 	}
@@ -144,8 +140,7 @@ public class Robot extends TimedRobot
 		{
 			SmartDashboard.putBoolean("GameEnding", true);
 		}
-		Scheduler.getInstance().run();
-		System.out.println(RobotManager.GetDriveJoy().GetIsDisabled(2));
+		Scheduler.getInstance().run();;
 	}
 
 	@Override
