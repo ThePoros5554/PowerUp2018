@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5554.robot;
 
 import commands.ActivateMechSys;
+import commands.ReverseAxisDisabled;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import systems.RobotManager;
@@ -31,25 +32,28 @@ public class OI
 
 	public OI()
 	{
-		elevatorButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.ELEVATORBUTTON);
-		rightRampButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.RIGHTRAMPBUTTON);
-		climbButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.CLIMBBUTTON);
-		leftRampButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.LEFTRAMPBUTTON);
-		feederAxisButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDERAXISBUTTON);
-		feederButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDERBUTTON);
+//		elevatorButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.ELEVATORBUTTON);
+//		rightRampButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.RIGHTRAMPBUTTON);
+//		climbButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.CLIMBBUTTON);
+//		leftRampButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.LEFTRAMPBUTTON);
+//		feederAxisButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDERAXISBUTTON);
+//		feederButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDERBUTTON);
+//		
+//		elevatorActivate = new ActivateMechSys(RobotMap.ELEVATORKEY, RobotMap.ELEVATORKEY);
+//		rightRampActivate = new ActivateMechSys(RobotMap.RIGHTRAMPKEY, RobotMap.RIGHTRAMPKEY);
+//		climbActivate = new ActivateMechSys(RobotMap.CLIMBKEY, RobotMap.CLIMBKEY);
+//		leftRampActivate = new ActivateMechSys(RobotMap.LEFTRAMPKEY, RobotMap.LEFTRAMPKEY);
+//		feederAxisActivate = new ActivateMechSys(RobotMap.FEEDERAXISKEY, RobotMap.FEEDERAXISKEY);
+//		feederActivate = new ActivateMechSys(RobotMap.FEEDERKEY, RobotMap.FEEDERKEY);
+//		
+//		elevatorButton.whileHeld(elevatorActivate);
+//		rightRampButton.whileHeld(rightRampActivate);
+//		climbButton.whileHeld(climbActivate);
+//		leftRampButton.whileHeld(leftRampActivate);
+//		feederAxisButton.whileHeld(feederAxisActivate);
+//		feederButton.whileHeld(feederActivate);	
 		
-		elevatorActivate = new ActivateMechSys(RobotMap.ELEVATORKEY, RobotMap.ELEVATORKEY);
-		rightRampActivate = new ActivateMechSys(RobotMap.RIGHTRAMPKEY, RobotMap.RIGHTRAMPKEY);
-		climbActivate = new ActivateMechSys(RobotMap.CLIMBKEY, RobotMap.CLIMBKEY);
-		leftRampActivate = new ActivateMechSys(RobotMap.LEFTRAMPKEY, RobotMap.LEFTRAMPKEY);
-		feederAxisActivate = new ActivateMechSys(RobotMap.FEEDERAXISKEY, RobotMap.FEEDERAXISKEY);
-		feederActivate = new ActivateMechSys(RobotMap.FEEDERKEY, RobotMap.FEEDERKEY);
-		
-		elevatorButton.whileHeld(elevatorActivate);
-		rightRampButton.whileHeld(rightRampActivate);
-		climbButton.whileHeld(climbActivate);
-		leftRampButton.whileHeld(leftRampActivate);
-		feederAxisButton.whileHeld(feederAxisActivate);
-		feederButton.whileHeld(feederActivate);	
+		Button b = new JoystickButton(RobotManager.GetDriveJoy(), 2);
+		b.whenPressed(new ReverseAxisDisabled(RobotManager.GetDriveJoy(), 2));
 	}
 }

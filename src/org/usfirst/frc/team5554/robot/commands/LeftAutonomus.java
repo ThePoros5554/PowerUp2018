@@ -3,9 +3,9 @@ package org.usfirst.frc.team5554.robot.commands;
 import org.usfirst.frc.team5554.robot.RobotMap;
 
 import commands.ActivateMechSys;
-import commands.auto.TimedGyroDrive;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import systems.RobotManager;
 
 /**
  *
@@ -55,7 +55,7 @@ public class LeftAutonomus extends CommandGroup
     
    	public void LL()
     {
-   		addSequential(new TestAutonomus());
+   		addSequential(new TimedGyroDrive("TGDS_LeftAutonomus", 0.03, 5));
 	   	//addParallel(command);
     }
     public void LR()

@@ -11,6 +11,7 @@ import org.usfirst.frc.team5554.robot.commands.LeftAutonomus;
 import org.usfirst.frc.team5554.robot.commands.RightAutonomus;
 import org.usfirst.frc.team5554.robot.commands.empty;
 
+import commands.DriveMechanum;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -58,7 +59,6 @@ public class Robot extends TimedRobot
 		this.rearLeftMotor = new Victor(RobotMap.REARLEFTMOTORPORT);
 		this.frontRightMotor = new Victor(RobotMap.FRONTRIGHTMOTORPORT);
 		this.rearRightMotor = new Victor(RobotMap.REARRIGHTMOTORPORT);
-		
 //		this.gyro = new ADXRS450_Gyro(RobotMap.GYRO_PORT);
 //		
 //		RobotManager.AddSubsystem(RobotMap.ELEVATORKEY, this.elevator);
@@ -74,7 +74,7 @@ public class Robot extends TimedRobot
 		RobotManager.AddSpeed(RobotMap.LEFTRAMPKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.FEEDERAXISKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.FEEDERKEY, (double) 0);
-		RobotManager.AddSpeed(RobotMap.TGDS_LEFTAUTONOMUS, 0.3);
+		RobotManager.AddSpeed(RobotMap.TGDS_LEFTAUTONOMUS, 0.5);
 		
 		RobotManager.SetDriveJoy(0);
 		
@@ -82,20 +82,27 @@ public class Robot extends TimedRobot
 		RobotManager.SetSpeedAxis(0);
 		RobotManager.SetRotateAxis(1);
 		RobotManager.SetTwistAxis(2);
+		RobotManager.GetDriveTrain().SetMinSpeedValue(0.1);
+		RobotManager.GetDriveTrain().SetMinRotateValue(0.1);
+		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMinTwistValue(0.15);
+		
 		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMaxOutput(0.5);
 
 
+		gyro = new ADXRS450_Gyro(RobotMap.GYRO_PORT);
+		RobotManager.SetGyro(this.gyro);
 		
-//		RobotManager.SetGyro(this.gyro);
+		OI oi = new OI();
 		
-		//OI oi = new OI();
+		autoChooser.addDefault("Empty", new empty());
+		autoChooser.addObject("LeftAutonomus", new LeftAutonomus());
+		autoChooser.addObject("CenterAutonomus", new CenterAutonomus());
+		autoChooser.addObject("RightAutonomus", new RightAutonomus());
+		SmartDashboard.putData("Autonomus chooser", autoChooser);
+		SmartDashboard.putBoolean("GameEnding", false);
 		
-//		autoChooser.addDefault("Empty", new empty());
-//		autoChooser.addObject("LeftAutonomus", new LeftAutonomus());
-//		autoChooser.addObject("CenterAutonomus", new CenterAutonomus());
-//		autoChooser.addObject("RightAutonomus", new RightAutonomus());
-//		SmartDashboard.putData("Autonomus chooser", autoChooser);
-//		SmartDashboard.putBoolean("GameEnding", false);
+		SmartDashboard.putBoolean("reversed", false);
+		
 	}
 
 	@Override
@@ -111,6 +118,7 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousInit() 
 	{
+		RobotManager.GetDriveTrain().SetIsReversed(SmartDashboard.getBoolean("reversed", true));
 		this.autonomusCommand = autoChooser.getSelected();
 		this.autonomusCommand.start();
 	}
@@ -118,6 +126,7 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousPeriodic() 
 	{
+		RobotManager.GetDriveTrain().SetIsReversed(SmartDashboard.getBoolean("reversed", true));
 		Scheduler.getInstance().run();
 	}
 
@@ -133,11 +142,10 @@ public class Robot extends TimedRobot
 	{
 		if(RobotController.getFPGATime() - teleopStartTime > 105000000)
 		{
-			System.out.println("timeeeeeeeeeeeeeeeeeee");
 			SmartDashboard.putBoolean("GameEnding", true);
 		}
 		Scheduler.getInstance().run();
-
+		System.out.println(RobotManager.GetDriveJoy().GetIsDisabled(2));
 	}
 
 	@Override
