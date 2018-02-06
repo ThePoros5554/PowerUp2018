@@ -6,22 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team5554.robot;
-import org.usfirst.frc.team5554.robot.commands.Center_Exchange;
-import org.usfirst.frc.team5554.robot.commands.Center_Scale_ToLeft;
-import org.usfirst.frc.team5554.robot.commands.Center_Scale_ToRight;
-import org.usfirst.frc.team5554.robot.commands.Center_Switch_ToLeft;
-import org.usfirst.frc.team5554.robot.commands.Center_Switch_ToRight;
-import org.usfirst.frc.team5554.robot.commands.Left_Exchange;
-import org.usfirst.frc.team5554.robot.commands.Left_Scale_ToLeft;
-import org.usfirst.frc.team5554.robot.commands.Left_Scale_ToRight;
-import org.usfirst.frc.team5554.robot.commands.Left_Switch_ToLeft;
-import org.usfirst.frc.team5554.robot.commands.Left_Switch_ToRight;
-import org.usfirst.frc.team5554.robot.commands.Right_Exchange;
-import org.usfirst.frc.team5554.robot.commands.Right_Scale_ToLeft;
-import org.usfirst.frc.team5554.robot.commands.Right_Scale_ToRight;
-import org.usfirst.frc.team5554.robot.commands.Right_Switch_ToLeft;
-import org.usfirst.frc.team5554.robot.commands.Right_Switch_ToRight;
-import org.usfirst.frc.team5554.robot.commands.empty;
 
 import commands.DriveMechanum;
 import commands.auto.TimedGyroDrive;
@@ -34,7 +18,6 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import systems.RobotManager;
 import systems.subsystems.MechDriveTrain;
