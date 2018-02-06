@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class Right_Scale_ToRIght extends CommandGroup {
+public class Right_Scale_ToRight extends CommandGroup {
 
-    public Right_Scale_ToRIght() {
+    public Right_Scale_ToRight() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

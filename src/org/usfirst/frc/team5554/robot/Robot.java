@@ -6,11 +6,27 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team5554.robot;
+import org.usfirst.frc.team5554.robot.commands.Center_Exchange;
+import org.usfirst.frc.team5554.robot.commands.Center_Scale_ToLeft;
+import org.usfirst.frc.team5554.robot.commands.Center_Scale_ToRight;
+import org.usfirst.frc.team5554.robot.commands.Center_Switch_ToLeft;
+import org.usfirst.frc.team5554.robot.commands.Center_Switch_ToRight;
+import org.usfirst.frc.team5554.robot.commands.Left_Exchange;
+import org.usfirst.frc.team5554.robot.commands.Left_Scale_ToLeft;
+import org.usfirst.frc.team5554.robot.commands.Left_Scale_ToRight;
+import org.usfirst.frc.team5554.robot.commands.Left_Switch_ToLeft;
+import org.usfirst.frc.team5554.robot.commands.Left_Switch_ToRight;
+import org.usfirst.frc.team5554.robot.commands.Right_Exchange;
+import org.usfirst.frc.team5554.robot.commands.Right_Scale_ToLeft;
+import org.usfirst.frc.team5554.robot.commands.Right_Scale_ToRight;
+import org.usfirst.frc.team5554.robot.commands.Right_Switch_ToLeft;
+import org.usfirst.frc.team5554.robot.commands.Right_Switch_ToRight;
 import org.usfirst.frc.team5554.robot.commands.empty;
 
 import commands.DriveMechanum;
 import commands.auto.TimedGyroDrive;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Victor;
@@ -46,12 +62,10 @@ public class Robot extends TimedRobot
 	private Command RLautonomusCommand;
 	private Command RRautonomusCommand;
 	
-	private SendableChooser<Command> LLautoChooser = new SendableChooser<Command>();
-	private SendableChooser<Command> LRautoChooser = new SendableChooser<Command>();
-	private SendableChooser<Command> RLautoChooser = new SendableChooser<Command>();
-	private SendableChooser<Command> RRautoChooser = new SendableChooser<Command>();
-	
 	double teleopStartTime;
+	
+	AutonomusChooser autoChooser;
+	String gameData;
 
 	@Override
 	public void robotInit() 
@@ -76,7 +90,7 @@ public class Robot extends TimedRobot
 		RobotManager.AddSubsystem(RobotMap.FEEDERAXISKEY, this.feederAxis);
 		RobotManager.AddSubsystem(RobotMap.FEEDERKEY, this.feeder);
 		
-		RobotManager.AddSpeed(RobotMap.ELEVATORKEY, (double) 0);
+		RobotManager.AddSpeed(RobotMap.ELEVATORKEY, (double) 0.5);
 		RobotManager.AddSpeed(RobotMap.RIGHTRAMPKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.CLIMBKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.LEFTRAMPKEY, (double) 0);
@@ -102,15 +116,10 @@ public class Robot extends TimedRobot
 		RobotManager.SetGyro(this.gyro);
 		
 		OI oi = new OI();
-		
-		LLautoChooser.addDefault("Empty", new empty());
-		LRautoChooser.addDefault("Empty", new empty());
-		RLautoChooser.addDefault("Empty", new empty());
-		RRautoChooser.addDefault("Empty", new empty());
+		autoChooser = new AutonomusChooser();
+		gameData =  DriverStation.getInstance().getGameSpecificMessage();
 		
 		SmartDashboard.putBoolean("GameEnding", false);	
-		
-		
 	}
 
 	@Override
@@ -126,11 +135,38 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousInit() 
 	{
+		this.LLautonomusCommand = autoChooser.LLGetSelected();
+		this.LRautonomusCommand = autoChooser.LRGetSelected();
+		this.RLautonomusCommand = autoChooser.RLGetSelected();
+		this.RRautonomusCommand = autoChooser.RRGetSelected();
+		
+		if (gameData.charAt(0) == 'L')
+		{
+			if (gameData.charAt(1) == 'L')
+			{
+				LLautonomusCommand.start();
+			}
+			if (gameData.charAt(1) == 'R')
+			{
+				LRautonomusCommand.start();
+			}
+		}
+		if (gameData.charAt(0) == 'R')
+		{
+			if (gameData.charAt(1) == 'L')
+			{
+				RLautonomusCommand.start();
+			}
+			if (gameData.charAt(1) == 'R')
+			{
+				RRautonomusCommand.start();
+			}
+		}
 	}
 
 	@Override
 	public void autonomousPeriodic() 
-	{
+	{	
 		Scheduler.getInstance().run();
 	}
 
