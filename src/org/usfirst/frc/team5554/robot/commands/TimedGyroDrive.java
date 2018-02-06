@@ -43,7 +43,14 @@ public class TimedGyroDrive extends Command
         
 		if(this.driveTrainClass == "systems.subsystems.DiffDriveTrain")
 		{
-			((DiffDriveTrain) this.driveTrain).ArcadeDrive(this.speed, angle);
+			if(this.driveTrain.IsReversed() == true)
+			{
+				((DiffDriveTrain) this.driveTrain).ArcadeDrive(-this.speed, angle);
+			}
+			else
+			{
+				((DiffDriveTrain) this.driveTrain).ArcadeDrive(this.speed, angle);
+			}
 		}
 		else
 		{
