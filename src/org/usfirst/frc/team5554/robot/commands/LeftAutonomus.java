@@ -4,6 +4,7 @@ import org.usfirst.frc.team5554.robot.RobotMap;
 
 import commands.ActivateMechSys;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import systems.RobotManager;
 
@@ -55,7 +56,7 @@ public class LeftAutonomus extends CommandGroup
     
    	public void LL()
     {
-   		addSequential(new TimedGyroDrive("TGDS_LeftAutonomus", 0.03, 5));
+   		addSequential(new TimedGyroDrive("gyroSpeed", 0.03, 5));
 	   	//addParallel(command);
     }
     public void LR()

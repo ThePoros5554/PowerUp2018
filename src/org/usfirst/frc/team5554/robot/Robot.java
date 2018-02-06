@@ -12,10 +12,13 @@ import org.usfirst.frc.team5554.robot.commands.RightAutonomus;
 import org.usfirst.frc.team5554.robot.commands.empty;
 
 import commands.DriveMechanum;
+import commands.auto.TimedGyroDrive;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -42,9 +45,11 @@ public class Robot extends TimedRobot
 	private ADXRS450_Gyro gyro;
 	
 	private Command autonomusCommand;
-	private SendableChooser<Command> autoChooser = new SendableChooser<Command>();;
+	private Command autonomusChooser;
+	private SendableChooser<Command> sideChooser = new SendableChooser<Command>();
+	private SendableChooser<Command> autoChooser = new SendableChooser<Command>();
 	double teleopStartTime;
-	
+
 	@Override
 	public void robotInit() 
 	{
@@ -75,6 +80,8 @@ public class Robot extends TimedRobot
 		RobotManager.AddSpeed(RobotMap.FEEDERAXISKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.FEEDERKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.TGDS_LEFTAUTONOMUS, 0.5);
+		RobotManager.AddSpeed("gyroSpeed", 0.5);
+		RobotManager.AddSpeed("gyroSpeedB", -0.5);
 		
 		RobotManager.SetDriveJoy(0);
 		
@@ -88,18 +95,20 @@ public class Robot extends TimedRobot
 		
 		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMaxOutput(0.5);
 
-
 		gyro = new ADXRS450_Gyro(RobotMap.GYRO_PORT);
 		RobotManager.SetGyro(this.gyro);
 		
 		OI oi = new OI();
 		
-		autoChooser.addDefault("Empty", new empty());
-		autoChooser.addObject("LeftAutonomus", new LeftAutonomus());
-		autoChooser.addObject("CenterAutonomus", new CenterAutonomus());
-		autoChooser.addObject("RightAutonomus", new RightAutonomus());
-		SmartDashboard.putData("Autonomus chooser", autoChooser);
+		sideChooser.addDefault("Empty", new empty());
+		sideChooser.addObject("LeftAutonomus", new LeftAutonomus());
+		sideChooser.addObject("CenterAutonomus", new CenterAutonomus());
+		sideChooser.addObject("RightAutonomus", new RightAutonomus());
+		SmartDashboard.putData("Side chooser", sideChooser);
+		
 		SmartDashboard.putBoolean("GameEnding", false);	
+		
+		
 	}
 
 	@Override
@@ -115,14 +124,13 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousInit() 
 	{
-		this.autonomusCommand = autoChooser.getSelected();
+		this.autonomusCommand = sideChooser.getSelected();
 		this.autonomusCommand.start();
 	}
 
 	@Override
 	public void autonomousPeriodic() 
 	{
-		RobotManager.GetDriveTrain().SetIsReversed(SmartDashboard.getBoolean("reversed", true));
 		Scheduler.getInstance().run();
 	}
 

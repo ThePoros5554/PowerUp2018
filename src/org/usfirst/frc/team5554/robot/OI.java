@@ -9,6 +9,7 @@ package org.usfirst.frc.team5554.robot;
 
 import commands.ActivateMechSys;
 import commands.DisableJoyAxis;
+import commands.auto.TimedGyroDrive;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import systems.RobotManager;
@@ -40,7 +41,7 @@ public class OI
 	DisableJoyAxis enabledSpeed;
 	DisableJoyAxis enabledRotate;
 	DisableJoyAxis enabledTwist;
-
+	
 	public OI()
 	{
 		elevatorButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.ELEVATORBUTTON);
@@ -51,7 +52,7 @@ public class OI
 		feederButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDERBUTTON);
 		onlyRotateAxisButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.ONLYROTATEAXISBUTTON);
 		onlySpeedButton = new	JoystickButton(RobotManager.GetDriveJoy(), RobotMap.ONLYSPEEDBUTTON);
-		
+				
 		elevatorActivate = new ActivateMechSys(RobotMap.ELEVATORKEY, RobotMap.ELEVATORKEY);
 		rightRampActivate = new ActivateMechSys(RobotMap.RIGHTRAMPKEY, RobotMap.RIGHTRAMPKEY);
 		climbActivate = new ActivateMechSys(RobotMap.CLIMBKEY, RobotMap.CLIMBKEY);
