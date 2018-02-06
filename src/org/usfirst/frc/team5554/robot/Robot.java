@@ -6,9 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team5554.robot;
-import org.usfirst.frc.team5554.robot.commands.CenterAutonomus;
-import org.usfirst.frc.team5554.robot.commands.LeftAutonomus;
-import org.usfirst.frc.team5554.robot.commands.RightAutonomus;
 import org.usfirst.frc.team5554.robot.commands.empty;
 
 import commands.DriveMechanum;
@@ -44,10 +41,16 @@ public class Robot extends TimedRobot
 
 	private ADXRS450_Gyro gyro;
 	
-	private Command autonomusCommand;
-	private Command autonomusChooser;
-	private SendableChooser<Command> sideChooser = new SendableChooser<Command>();
-	private SendableChooser<Command> autoChooser = new SendableChooser<Command>();
+	private Command LLautonomusCommand;
+	private Command LRautonomusCommand;
+	private Command RLautonomusCommand;
+	private Command RRautonomusCommand;
+	
+	private SendableChooser<Command> LLautoChooser = new SendableChooser<Command>();
+	private SendableChooser<Command> LRautoChooser = new SendableChooser<Command>();
+	private SendableChooser<Command> RLautoChooser = new SendableChooser<Command>();
+	private SendableChooser<Command> RRautoChooser = new SendableChooser<Command>();
+	
 	double teleopStartTime;
 
 	@Override
@@ -100,11 +103,10 @@ public class Robot extends TimedRobot
 		
 		OI oi = new OI();
 		
-		sideChooser.addDefault("Empty", new empty());
-		sideChooser.addObject("LeftAutonomus", new LeftAutonomus());
-		sideChooser.addObject("CenterAutonomus", new CenterAutonomus());
-		sideChooser.addObject("RightAutonomus", new RightAutonomus());
-		SmartDashboard.putData("Side chooser", sideChooser);
+		LLautoChooser.addDefault("Empty", new empty());
+		LRautoChooser.addDefault("Empty", new empty());
+		RLautoChooser.addDefault("Empty", new empty());
+		RRautoChooser.addDefault("Empty", new empty());
 		
 		SmartDashboard.putBoolean("GameEnding", false);	
 		
@@ -124,8 +126,6 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousInit() 
 	{
-		this.autonomusCommand = sideChooser.getSelected();
-		this.autonomusCommand.start();
 	}
 
 	@Override
