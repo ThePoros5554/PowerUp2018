@@ -1,6 +1,10 @@
 package org.usfirst.frc.team5554.robot.commands;
 
+import org.usfirst.frc.team5554.robot.RobotMap;
+
+import commands.auto.MechTimedGyroDrive;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import systems.subsystems.MechDriveTrain;
 
 /**
  *
@@ -8,6 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Left_Scale_ToLeft extends CommandGroup {
 
     public Left_Scale_ToLeft() {
+    	addSequential(new MechTimedGyroDrive(RobotMap.TGDS_LEFTAUTONOMUS, 0.03, 3, MechDriveTrain.MechDrivingDirection.Forward));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

@@ -7,18 +7,16 @@
 
 package org.usfirst.frc.team5554.robot;
 
-import commands.DriveMechanum;
-import commands.auto.TimedGyroDrive;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import systems.PidAction;
 import systems.RobotManager;
 import systems.subsystems.MechDriveTrain;
 import systems.subsystems.MechDriveTrain.MechDriveTypes;
@@ -40,14 +38,12 @@ public class Robot extends TimedRobot
 
 	private ADXRS450_Gyro gyro;
 	
-	private Command LLautonomusCommand;
-	private Command LRautonomusCommand;
-	private Command RLautonomusCommand;
-	private Command RRautonomusCommand;
-	
 	double teleopStartTime;
 	
+	//private PidAction pidAction;
+	
 	AutonomusChooser autoChooser;
+	CommandGroup autoSelected;
 	String gameData;
 
 	@Override
@@ -73,15 +69,13 @@ public class Robot extends TimedRobot
 		RobotManager.AddSubsystem(RobotMap.FEEDERAXISKEY, this.feederAxis);
 		RobotManager.AddSubsystem(RobotMap.FEEDERKEY, this.feeder);
 		
-		RobotManager.AddSpeed(RobotMap.ELEVATORKEY, (double) 0.5);
+		RobotManager.AddSpeed(RobotMap.ELEVATORKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.RIGHTRAMPKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.CLIMBKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.LEFTRAMPKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.FEEDERAXISKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.FEEDERKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.TGDS_LEFTAUTONOMUS, 0.5);
-		RobotManager.AddSpeed("gyroSpeed", 0.5);
-		RobotManager.AddSpeed("gyroSpeedB", -0.5);
 		
 		RobotManager.SetDriveJoy(0);
 		
@@ -93,15 +87,20 @@ public class Robot extends TimedRobot
 		RobotManager.GetDriveTrain().SetMinRotateValue(0.1);
 		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMinTwistValue(0.15);
 		
-		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMaxOutput(0.5);
+		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMaxOutput(-0.5);
 
-		gyro = new ADXRS450_Gyro(RobotMap.GYRO_PORT);
 		RobotManager.SetGyro(this.gyro);
+		//this.pidAction = new PidAction(RobotMap.KP, RobotMap.KI, RobotMap.KD, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain) RobotManager.GetDriveTrain());
+		RobotMap.FORWARDENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
+		RobotMap.SIDEENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
+		//RobotManager.AddPidAction(RobotMap.RUNPIDACTIONKEY, pidAction);
 		
 		OI oi = new OI();
 		autoChooser = new AutonomusChooser();
 		gameData =  DriverStation.getInstance().getGameSpecificMessage();
 		
+		RobotManager.GetDriveTrain().SetIsReversed(true);
+				
 		SmartDashboard.putBoolean("GameEnding", false);	
 	}
 
@@ -117,34 +116,38 @@ public class Robot extends TimedRobot
 
 	@Override
 	public void autonomousInit() 
-	{
-		this.LLautonomusCommand = autoChooser.LLGetSelected();
-		this.LRautonomusCommand = autoChooser.LRGetSelected();
-		this.RLautonomusCommand = autoChooser.RLGetSelected();
-		this.RRautonomusCommand = autoChooser.RRGetSelected();
+	{	
+		if(this.autoSelected != null)
+		{
+			this.autoSelected.cancel();
+		}
+		
 		
 		if (gameData.charAt(0) == 'L')
 		{
 			if (gameData.charAt(1) == 'L')
 			{
-				LLautonomusCommand.start();
+				autoSelected = (CommandGroup) autoChooser.LLGetSelected();
 			}
 			if (gameData.charAt(1) == 'R')
 			{
-				LRautonomusCommand.start();
+				autoSelected = (CommandGroup) autoChooser.LRGetSelected();
 			}
 		}
 		if (gameData.charAt(0) == 'R')
 		{
 			if (gameData.charAt(1) == 'L')
 			{
-				RLautonomusCommand.start();
+				autoSelected = (CommandGroup) autoChooser.RLGetSelected();
 			}
 			if (gameData.charAt(1) == 'R')
 			{
-				RRautonomusCommand.start();
+				autoSelected = (CommandGroup) autoChooser.RRGetSelected();
 			}
+			
 		}
+		autoSelected.start();
+
 	}
 
 	@Override
@@ -153,9 +156,15 @@ public class Robot extends TimedRobot
 		Scheduler.getInstance().run();
 	}
 
+	
+
 	@Override
 	public void teleopInit() 
 	{
+		if(this.autoSelected != null)
+		{
+			this.autoSelected.cancel();
+		}
 		this.teleopStartTime = RobotController.getFPGATime();
 		SmartDashboard.putBoolean("GameEnding", false);
 	}

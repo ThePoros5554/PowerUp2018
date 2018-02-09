@@ -7,7 +7,9 @@
 
 package org.usfirst.frc.team5554.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -38,6 +40,7 @@ public class RobotMap
 	public final static String ONLYROTATEAXISKEY = "onlyRotateAxis";
 	public final static String ONLYSPEEDKEY = "onlySpeed";
 	public final static String TGDS_LEFTAUTONOMUS = "TGDS_LeftAutonomus";
+	public final static String RUNPIDACTIONKEY = "RunPidAction";
 
 	public final static int ELEVATORBUTTON = 7;
 	public final static int RIGHTRAMPBUTTON = 8;
@@ -52,7 +55,16 @@ public class RobotMap
 	public final static int ROTATEAXIS = 1;
 	public final static int TWISTAXIS = 2;
 	
-    public static final SPI.Port GYRO_PORT  = SPI.Port.kOnboardCS0;
+	public final static double KP = 0.001;
+	public final static double KI = 0.00001;
+	public final static double KD = 0;
+	public final static double PERCENTTOLERANCE = 5;
+	public final static double GYROKP = 0.05;
+	public final static double ENCODERDISTANCEPERPULSE = 47.8536/360;
+	
+    public final static SPI.Port GYRO_PORT  = SPI.Port.kOnboardCS0;
+    public final static Encoder FORWARDENCODER = new Encoder(0, 1, false, EncodingType.k4X);
+    public final static Encoder SIDEENCODER = new Encoder(2, 3, false, EncodingType.k4X);
 
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.

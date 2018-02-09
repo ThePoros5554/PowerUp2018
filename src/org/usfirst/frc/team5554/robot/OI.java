@@ -9,7 +9,6 @@ package org.usfirst.frc.team5554.robot;
 
 import commands.ActivateMechSys;
 import commands.DisableJoyAxis;
-import commands.auto.TimedGyroDrive;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import systems.RobotManager;
