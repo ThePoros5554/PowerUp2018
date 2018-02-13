@@ -7,7 +7,9 @@
 
 package org.usfirst.frc.team5554.robot;
 
+import commands.ActivateMechSys;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.RobotController;
@@ -15,12 +17,15 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import systems.PidAction;
+import systems.PIDAction;
 import systems.RobotManager;
 import systems.subsystems.MechDriveTrain;
 import systems.subsystems.MechDriveTrain.MechDriveTypes;
+import systems.subsystems.MechDriveTrain.MechPidAction;
 import systems.subsystems.MechSys;
+import systems.subsystems.PidActionSubsys;
 
 public class Robot extends TimedRobot 
 {
@@ -35,16 +40,23 @@ public class Robot extends TimedRobot
 	private Victor frontRightMotor;
 	private Victor rearLeftMotor;
 	private Victor frontLeftMotor;
+	
+	private Potentiometer pot;
 
 	private ADXRS450_Gyro gyro;
 	
-	double teleopStartTime;
+	private double teleopStartTime;
+
+	private OI oi;
 	
-	//private PidAction pidAction;
+	private AutonomusChooser autoChooser;
+	private CommandGroup autoSelected;
+	private String gameData;
 	
-	AutonomusChooser autoChooser;
-	CommandGroup autoSelected;
-	String gameData;
+	PIDAction turnNintyRight;
+	PIDAction turnNintyLeft;
+	PIDAction autoElevatorToSwitch;
+	PIDAction autoElevatorToScale;
 
 	@Override
 	public void robotInit() 
@@ -76,8 +88,10 @@ public class Robot extends TimedRobot
 		RobotManager.AddSpeed(RobotMap.FEEDERAXISKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.FEEDERKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.TGDS_LEFTAUTONOMUS, 0.5);
-		
+				
 		RobotManager.SetDriveJoy(0);
+		
+		RobotManager.SetGyro(this.gyro);
 		
 		RobotManager.SetDriveTrain(this.frontLeftMotor,  this.rearLeftMotor, this.frontRightMotor,  this.rearRightMotor, MechDriveTypes.CartesianDrive);
 		RobotManager.SetSpeedAxis(RobotMap.SPEEDAXIS);
@@ -85,22 +99,45 @@ public class Robot extends TimedRobot
 		RobotManager.SetTwistAxis(RobotMap.TWISTAXIS);
 		RobotManager.GetDriveTrain().SetMinSpeedValue(0.1);
 		RobotManager.GetDriveTrain().SetMinRotateValue(0.1);
-		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMinTwistValue(0.15);
-		
+		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMinTwistValue(0.15);	
 		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMaxOutput(-0.5);
-
-		RobotManager.SetGyro(this.gyro);
-		//this.pidAction = new PidAction(RobotMap.KP, RobotMap.KI, RobotMap.KD, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain) RobotManager.GetDriveTrain());
+		RobotManager.GetDriveTrain().SetIsReversed(true);
+		
 		RobotMap.FORWARDENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
 		RobotMap.SIDEENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
-		//RobotManager.AddPidAction(RobotMap.RUNPIDACTIONKEY, pidAction);
 		
-		OI oi = new OI();
+		((MechDriveTrain) RobotManager.GetDriveTrain()).SetPIDOutput(MechPidAction.PidTurnInPlace);
+		turnNintyRight = new PIDAction(RobotMap.TURNP, RobotMap.TURNI, RobotMap.TURND, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain) RobotManager.GetDriveTrain());
+		RobotManager.AddPIDAction(RobotMap.TURNNINTYRIGHTKEY, turnNintyRight);
+		turnNintyRight.SetSetPoint(RobotMap.TURNNINTYRIGHTSP);
+		turnNintyRight.SetInputRange(0, RobotMap.TURNNINTYRIGHTSP);
+		turnNintyRight.SetPercentTolerance(RobotMap.TURNNINTYTOLERENCE);
+		turnNintyLeft = new PIDAction(RobotMap.TURNP, RobotMap.TURNI, RobotMap.TURND, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain) RobotManager.GetDriveTrain());
+		RobotManager.AddPIDAction(RobotMap.TURNNINTYLEFTKEY, turnNintyLeft);
+		turnNintyLeft.SetSetPoint(RobotMap.TURNNINTYLEFTSP);
+		turnNintyLeft.SetInputRange(RobotMap.TURNNINTYLEFTSP, 0);
+		turnNintyLeft.SetPercentTolerance(RobotMap.TURNNINTYTOLERENCE);
+		
+		pot = new AnalogPotentiometer(0);
+		
+		autoElevatorToSwitch = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (PidActionSubsys) new ActivateMechSys(RobotMap.ELEVATORTOSWITCHKEY));
+		RobotManager.AddPIDAction(RobotMap.ELEVATORTOSWITCHKEY, autoElevatorToSwitch);
+		autoElevatorToSwitch.SetSetPoint(RobotMap.ELEVATORTOSWITCHSP);
+		autoElevatorToSwitch.SetInputRange(RobotMap.ELEVATORTOSWITCHSP, 0);
+		autoElevatorToSwitch.SetPercentTolerance(RobotMap.ELEVATORTOLERENCE);
+		
+		autoElevatorToScale = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (PidActionSubsys) new ActivateMechSys(RobotMap.ELEVATORTOSCALEKEY));
+		RobotManager.AddPIDAction(RobotMap.ELEVATORTOSCALEKEY, autoElevatorToScale);
+		autoElevatorToScale.SetSetPoint(RobotMap.ELEVATORTOSCALESP);
+		autoElevatorToScale.SetInputRange(RobotMap.ELEVATORTOSCALESP, 0);
+		autoElevatorToScale.SetPercentTolerance(RobotMap.ELEVATORTOLERENCE);
+
+		this.oi = new OI();
+		
 		autoChooser = new AutonomusChooser();
+		
 		gameData =  DriverStation.getInstance().getGameSpecificMessage();
 		
-		RobotManager.GetDriveTrain().SetIsReversed(true);
-				
 		SmartDashboard.putBoolean("GameEnding", false);	
 	}
 
@@ -134,7 +171,7 @@ public class Robot extends TimedRobot
 				autoSelected = (CommandGroup) autoChooser.LRGetSelected();
 			}
 		}
-		if (gameData.charAt(0) == 'R')
+		else if (gameData.charAt(0) == 'R')
 		{
 			if (gameData.charAt(1) == 'L')
 			{
@@ -147,6 +184,7 @@ public class Robot extends TimedRobot
 			
 		}
 		autoSelected.start();
+		System.out.println(autoSelected.toString());
 
 	}
 
