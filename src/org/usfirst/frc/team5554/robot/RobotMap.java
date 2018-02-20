@@ -9,7 +9,13 @@ package org.usfirst.frc.team5554.robot;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import sensors.DualLimit;
+import sensors.LimitSwitch;
+import sensors.SysPosition;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -25,18 +31,24 @@ public class RobotMap
 	public final static int FRONTLEFTMOTORPORT = 3;
 
 	public final static int ELEVATORPORT = 4;
-	public final static int RIGHTRAMPPORT = 5;
-	public final static int CLIMBPORT = 6;
-	public final static int LEFTRAMPPORT = 7;
-	public final static int FEEDERAXISPORT = 8;
-	public final static int FEEDERPORT = 9;
+	public final static int FEEDERAXISPORT = 5;
+	public final static int LEFTFEEDERPORT = 6;
+	public final static int RIGHTFEEDERPORT = 7;
+	public final static int LEFTCLIMBPORT = 8;
+	public final static int RIGHTCLIBPORT = 9;
 	
 	public final static String ELEVATORKEY = "elevator";
-	public final static String RIGHTRAMPKEY = "rightRamp";
-	public final static String CLIMBKEY = "climb";
-	public final static String LEFTRAMPKEY = "leftRamp";
+	public final static String ELEVATORUPKEY = "elevatorUp";
+	public final static String ELEVATORDOWNKEY = "elevatorDown";
 	public final static String FEEDERAXISKEY = "feederAxis";
+	public final static String FEEDERAXISUPKEY = "feederAxisUp";
+	public final static String FEEDERAXISDOWNKEY = "feederAxisDown";
 	public final static String FEEDERKEY = "feeder";
+	public final static String FEEDERINKEY = "feederIn";
+	public final static String FEEDEROUTKEY = "feederOut";
+	public final static String CLIMBKEY = "climb";
+	public final static String CLIMBUPKEY = "climbUp";
+	public final static String CLIMBDOWNKEY = "climbDown";
 	public final static String ONLYROTATEAXISKEY = "onlyRotateAxis";
 	public final static String ONLYSPEEDKEY = "onlySpeed";
 	public final static String TGDS_LEFTAUTONOMUS = "TGDS_LeftAutonomus";
@@ -46,12 +58,19 @@ public class RobotMap
 	public final static String ELEVATORTOSWITCHKEY = "elevatorToSwitch";
 	public final static String ELEVATORTOSCALEKEY = "elevatorToScale";
 	
-	public final static int ELEVATORBUTTON = 7;
-	public final static int RIGHTRAMPBUTTON = 8;
-	public final static int CLIMBBUTTON = 9;
-	public final static int LEFTRAMPBUTTON = 10;
-	public final static int FEEDERAXISBUTTON =11;
-	public final static int FEEDERBUTTON = 12;
+	public final static String ELEVATORUPSPEED = "ELEVATORUPSPEED";
+	public final static String ELEVATORDOWNSPEED = "ELEVATORDOWNSPEED";
+	public final static String FEEDERAXISUPSPEED = "FEEDERAXISUPSPEED";
+	public final static String FEEDERAXISDOWNSPEED = "FEEDERAXISDOWNSPEED";
+
+	public final static int ELEVATORUPBUTTON = 3;
+	public final static int ELEVATORDOWNBUTTON = 2;
+	public final static int FEEDERAXISUPBUTTON = 6;
+	public final static int FEEDERAXISDOWNBUTTON = 5;
+	public final static int FEEDERINBUTTON = 12;
+	public final static int FEEDEROUTBUTTON = 11;
+	public final static int CLIMBUPBUTTON = 4;
+	public final static int CLIMBDOWNBUTTON = 1;
 	public final static int ONLYROTATEAXISBUTTON = 1;
 	public final static int ONLYSPEEDBUTTON = 2;
 	
@@ -66,30 +85,24 @@ public class RobotMap
 	public final static double GYROKP = 0.05;
 	public final static double ENCODERDISTANCEPERPULSE = 47.8536/360;
 	
-	public static final double TURNP = 0.005;
-	public static final double TURNI = 0;
-	public static final double TURND = 0;
-	public static final double TURNNINTYLEFTSP = -90;
-	public static final double TURNNINTYRIGHTSP = 90;
-	public static final double TURNNINTYTOLERENCE = 2;
-	public static final double ELEVATORP = 0;
-	public static final double ELEVATORI = 0;
-	public static final double ELEVATORD = 0;
-	public static final double ELEVATORTOSWITCHSP = 0;
-	public static final double ELEVATORTOSCALESP = 0;
-	public static final double ELEVATORTOLERENCE = 0;
+	public final static double TURNP = 0.005;
+	public final static double TURNI = 0;
+	public final static double TURND = 0;
+	public final static double TURNNINTYLEFTSP = -90;
+	public final static double TURNNINTYRIGHTSP = 90;
+	public final static double TURNNINTYTOLERENCE = 2;
+	public final static double ELEVATORP = 0;
+	public final static double ELEVATORI = 0;
+	public final static double ELEVATORD = 0;
+	public final static double ELEVATORTOSWITCHSP = 0;
+	public final static double ELEVATORTOSCALESP = 0;
+	public final static double ELEVATORTOLERENCE = 0;
 	
     public final static SPI.Port GYRO_PORT  = SPI.Port.kOnboardCS0;
     public final static Encoder FORWARDENCODER = new Encoder(0, 1, false, EncodingType.k4X);
     public final static Encoder SIDEENCODER = new Encoder(2, 3, false, EncodingType.k4X);
-
-	// For example to map the left and right motors, you could define the
-	// following variables to use with your drivetrain subsystem.
-	// public static int leftMotor = 1;
-	// public static int rightMotor = 2;
-
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
+    public final static LimitSwitch ELEVATORTOP = new LimitSwitch(4, SysPosition.Top, true);
+    public final static LimitSwitch ELEVATORBOTTOM = new LimitSwitch(5, SysPosition.Bottom, true);
+    public final static DualLimit ELEVATORSWITCHES = new DualLimit(ELEVATORTOP, ELEVATORBOTTOM);
+    
 }

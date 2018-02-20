@@ -62,11 +62,9 @@ public class Robot extends TimedRobot
 	public void robotInit() 
 	{
 		this.elevator = new MechSys(RobotMap.ELEVATORPORT);
-		this.rightRamp = new MechSys(RobotMap.RIGHTRAMPPORT);
-		this.climb = new MechSys(RobotMap.CLIMBPORT);
-		this.leftRamp = new MechSys(RobotMap.LEFTRAMPPORT);
+		this.climb = new MechSys(RobotMap.RIGHTCLIBPORT, RobotMap.LEFTCLIMBPORT);
 		this.feederAxis = new MechSys(RobotMap.FEEDERAXISPORT);
-		this.feeder = new MechSys(RobotMap.FEEDERPORT);
+		this.feeder = new MechSys(RobotMap.RIGHTFEEDERPORT, RobotMap.LEFTFEEDERPORT);
 		
 		this.frontLeftMotor = new Victor(RobotMap.FRONTLEFTMOTORPORT);
 		this.rearLeftMotor = new Victor(RobotMap.REARLEFTMOTORPORT);
@@ -75,21 +73,22 @@ public class Robot extends TimedRobot
 		this.gyro = new ADXRS450_Gyro(RobotMap.GYRO_PORT);
 		
 		RobotManager.AddSubsystem(RobotMap.ELEVATORKEY, this.elevator);
-		RobotManager.AddSubsystem(RobotMap.RIGHTRAMPKEY, this.rightRamp);
-		RobotManager.AddSubsystem(RobotMap.CLIMBKEY, this.climb);
-		RobotManager.AddSubsystem(RobotMap.LEFTRAMPKEY, this.leftRamp);
 		RobotManager.AddSubsystem(RobotMap.FEEDERAXISKEY, this.feederAxis);
+		RobotManager.AddSubsystem(RobotMap.CLIMBKEY, this.climb);
 		RobotManager.AddSubsystem(RobotMap.FEEDERKEY, this.feeder);
 		
-		RobotManager.AddSpeed(RobotMap.ELEVATORKEY, (double) 0);
-		RobotManager.AddSpeed(RobotMap.RIGHTRAMPKEY, (double) 0);
-		RobotManager.AddSpeed(RobotMap.CLIMBKEY, (double) 0);
-		RobotManager.AddSpeed(RobotMap.LEFTRAMPKEY, (double) 0);
-		RobotManager.AddSpeed(RobotMap.FEEDERAXISKEY, (double) 0);
-		RobotManager.AddSpeed(RobotMap.FEEDERKEY, (double) 0);
+		RobotManager.AddSpeed(RobotMap.ELEVATORUPSPEED, (double) 0.5);
+		RobotManager.AddSpeed(RobotMap.ELEVATORDOWNSPEED, (double) -0.5);
+		RobotManager.AddSpeed(RobotMap.FEEDERAXISUPSPEED, (double) 0.8);
+		RobotManager.AddSpeed(RobotMap.FEEDERAXISDOWNSPEED, (double) -0.8);
+		RobotManager.AddSpeed(RobotMap.CLIMBUPKEY, (double) 0);
+		RobotManager.AddSpeed(RobotMap.CLIMBDOWNKEY, (double) 0);
+		RobotManager.AddSpeed(RobotMap.FEEDERINKEY, (double) 0);
+		RobotManager.AddSpeed(RobotMap.FEEDEROUTKEY, (double) 0);
 		RobotManager.AddSpeed(RobotMap.TGDS_LEFTAUTONOMUS, 0.5);
 				
 		RobotManager.SetDriveJoy(0);
+		RobotManager.SetSystemsJoy(1);
 		
 		RobotManager.SetGyro(this.gyro);
 		
@@ -100,8 +99,8 @@ public class Robot extends TimedRobot
 		RobotManager.GetDriveTrain().SetMinSpeedValue(0.1);
 		RobotManager.GetDriveTrain().SetMinRotateValue(0.1);
 		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMinTwistValue(0.15);	
-		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMaxOutput(-0.5);
-		RobotManager.GetDriveTrain().SetIsReversed(true);
+		RobotManager.GetDriveTrain().SetIsReversed(false);
+		RobotManager.setRanged(3, 1, -1, true);
 		
 		RobotMap.FORWARDENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
 		RobotMap.SIDEENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
@@ -120,21 +119,21 @@ public class Robot extends TimedRobot
 		
 		pot = new AnalogPotentiometer(0);
 		
-		autoElevatorToSwitch = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (PidActionSubsys) new ActivateMechSys(RobotMap.ELEVATORTOSWITCHKEY));
-		RobotManager.AddPIDAction(RobotMap.ELEVATORTOSWITCHKEY, autoElevatorToSwitch);
-		autoElevatorToSwitch.SetSetPoint(RobotMap.ELEVATORTOSWITCHSP);
-		autoElevatorToSwitch.SetInputRange(RobotMap.ELEVATORTOSWITCHSP, 0);
-		autoElevatorToSwitch.SetPercentTolerance(RobotMap.ELEVATORTOLERENCE);
-		
-		autoElevatorToScale = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (PidActionSubsys) new ActivateMechSys(RobotMap.ELEVATORTOSCALEKEY));
-		RobotManager.AddPIDAction(RobotMap.ELEVATORTOSCALEKEY, autoElevatorToScale);
-		autoElevatorToScale.SetSetPoint(RobotMap.ELEVATORTOSCALESP);
-		autoElevatorToScale.SetInputRange(RobotMap.ELEVATORTOSCALESP, 0);
-		autoElevatorToScale.SetPercentTolerance(RobotMap.ELEVATORTOLERENCE);
+//		autoElevatorToSwitch = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (PidActionSubsys) new ActivateMechSys(RobotMap.ELEVATORTOSWITCHKEY));
+//		RobotManager.AddPIDAction(RobotMap.ELEVATORTOSWITCHKEY, autoElevatorToSwitch);
+//		autoElevatorToSwitch.SetSetPoint(RobotMap.ELEVATORTOSWITCHSP);
+//		autoElevatorToSwitch.SetInputRange(RobotMap.ELEVATORTOSWITCHSP, 0);
+//		autoElevatorToSwitch.SetPercentTolerance(RobotMap.ELEVATORTOLERENCE);
+//		
+//		autoElevatorToScale = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (PidActionSubsys) new ActivateMechSys(RobotMap.ELEVATORTOSCALEKEY));
+//		RobotManager.AddPIDAction(RobotMap.ELEVATORTOSCALEKEY, autoElevatorToScale);
+//		autoElevatorToScale.SetSetPoint(RobotMap.ELEVATORTOSCALESP);
+//		autoElevatorToScale.SetInputRange(RobotMap.ELEVATORTOSCALESP, 0);
+//		autoElevatorToScale.SetPercentTolerance(RobotMap.ELEVATORTOLERENCE);
 
 		this.oi = new OI();
 		
-		autoChooser = new AutonomusChooser();
+//		autoChooser = new AutonomusChooser();
 		
 		gameData =  DriverStation.getInstance().getGameSpecificMessage();
 		
