@@ -62,6 +62,7 @@ public class Robot extends TimedRobot
 	public void robotInit() 
 	{
 		this.elevator = new MechSys(RobotMap.ELEVATORPORT);
+		this.elevator.SetIsReversed(true);
 		this.climb = new MechSys(RobotMap.RIGHTCLIBPORT, RobotMap.LEFTCLIMBPORT);
 		this.feederAxis = new MechSys(RobotMap.FEEDERAXISPORT);
 		this.feeder = new MechSys(RobotMap.RIGHTFEEDERPORT, RobotMap.LEFTFEEDERPORT);
@@ -77,8 +78,8 @@ public class Robot extends TimedRobot
 		RobotManager.AddSubsystem(RobotMap.CLIMBKEY, this.climb);
 		RobotManager.AddSubsystem(RobotMap.FEEDERKEY, this.feeder);
 		
-		RobotManager.AddSpeed(RobotMap.ELEVATORUPSPEED, (double) 0.5);
-		RobotManager.AddSpeed(RobotMap.ELEVATORDOWNSPEED, (double) -0.5);
+		RobotManager.AddSpeed(RobotMap.ELEVATORUPSPEED, (double) -0.8);
+		RobotManager.AddSpeed(RobotMap.ELEVATORDOWNSPEED, (double) 0.8);
 		RobotManager.AddSpeed(RobotMap.FEEDERAXISUPSPEED, (double) 0.8);
 		RobotManager.AddSpeed(RobotMap.FEEDERAXISDOWNSPEED, (double) -0.8);
 		RobotManager.AddSpeed(RobotMap.FEEDERINKEY, (double) -0.8);
@@ -215,7 +216,11 @@ public class Robot extends TimedRobot
 		{
 			SmartDashboard.putBoolean("GameEnding", true);
 		}
-		Scheduler.getInstance().run();;
+		Scheduler.getInstance().run();
+		
+//		System.out.println("bottom   " + RobotMap.ELEVATORBOTTOM.GetPosition());
+//		System.out.println("top   " + RobotMap.ELEVATORTOP.GetPosition());
+//		System.out.println("dasdasd  " + RobotMap.ELEVATORSWITCHES.GetPosition());
 	}
 
 	@Override
