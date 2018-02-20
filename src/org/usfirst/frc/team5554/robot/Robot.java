@@ -81,10 +81,10 @@ public class Robot extends TimedRobot
 		RobotManager.AddSpeed(RobotMap.ELEVATORDOWNSPEED, (double) -0.5);
 		RobotManager.AddSpeed(RobotMap.FEEDERAXISUPSPEED, (double) 0.8);
 		RobotManager.AddSpeed(RobotMap.FEEDERAXISDOWNSPEED, (double) -0.8);
-		RobotManager.AddSpeed(RobotMap.CLIMBUPKEY, (double) 0);
-		RobotManager.AddSpeed(RobotMap.CLIMBDOWNKEY, (double) 0);
-		RobotManager.AddSpeed(RobotMap.FEEDERINKEY, (double) 0);
-		RobotManager.AddSpeed(RobotMap.FEEDEROUTKEY, (double) 0);
+		RobotManager.AddSpeed(RobotMap.FEEDERINKEY, (double) -0.8);
+		RobotManager.AddSpeed(RobotMap.FEEDEROUTKEY, (double) 0.8);
+		RobotManager.AddSpeed(RobotMap.CLIMBUPKEY, (double) -0.8);
+		RobotManager.AddSpeed(RobotMap.CLIMBDOWNKEY, (double) 0.8);
 		RobotManager.AddSpeed(RobotMap.TGDS_LEFTAUTONOMUS, 0.5);
 				
 		RobotManager.SetDriveJoy(0);
@@ -118,6 +118,8 @@ public class Robot extends TimedRobot
 		turnNintyLeft.SetPercentTolerance(RobotMap.TURNNINTYTOLERENCE);
 		
 		pot = new AnalogPotentiometer(0);
+		
+		this.elevator.SetLimitSwitch(RobotMap.ELEVATORSWITCHES);
 		
 //		autoElevatorToSwitch = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (PidActionSubsys) new ActivateMechSys(RobotMap.ELEVATORTOSWITCHKEY));
 //		RobotManager.AddPIDAction(RobotMap.ELEVATORTOSWITCHKEY, autoElevatorToSwitch);
