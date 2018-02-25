@@ -67,8 +67,8 @@ public class RobotMap
 	public final static int ELEVATORDOWNBUTTON = 2;
 	public final static int FEEDERAXISUPBUTTON = 6;
 	public final static int FEEDERAXISDOWNBUTTON = 5;
-	public final static int FEEDERINBUTTON = 12;
-	public final static int FEEDEROUTBUTTON = 11;
+	public final static int FEEDERINBUTTON = 4;
+	public final static int FEEDEROUTBUTTON = 3;
 	public final static int CLIMBUPBUTTON = 4;
 	public final static int CLIMBDOWNBUTTON = 1;
 	public final static int ONLYROTATEAXISBUTTON = 1;
@@ -78,24 +78,27 @@ public class RobotMap
 	public final static int ROTATEAXIS = 1;
 	public final static int TWISTAXIS = 2;
 	
-	public final static double KP = 0.003;
-	public final static double KI = 0.00003;
+	public final static double KP = 0.5;
+	public final static double KI = 0;
 	public final static double KD = 0;
 	public final static double PERCENTTOLERANCE = 5;
-	public final static double GYROKP = 0.05;
+	public final static double FORWARDGYROKP = 0.065;
+	public final static double SIDEGYROKP = 0.07;
 	public final static double ENCODERDISTANCEPERPULSE = 47.8536/360;
 	
-	public final static double TURNP = 0.005;
-	public final static double TURNI = 0;
-	public final static double TURND = 0;
+	public final static double TURNP = 0.0065;
+	public final static double TURNI = 0.00025;
+	public final static double TURND = 0.001;
+	
+	public final static String TURN70KEY = "TURN70KEY";
 	public final static double TURNNINTYLEFTSP = -90;
 	public final static double TURNNINTYRIGHTSP = 90;
 	public final static double TURNNINTYTOLERENCE = 2;
+	
 	public final static double ELEVATORP = 0;
 	public final static double ELEVATORI = 0;
 	public final static double ELEVATORD = 0;
 	public final static double ELEVATORTOSWITCHSP = 0;
-	public final static double ELEVATORTOSCALESP = 0;
 	public final static double ELEVATORTOLERENCE = 0;
 	
     public final static SPI.Port GYRO_PORT  = SPI.Port.kOnboardCS0;

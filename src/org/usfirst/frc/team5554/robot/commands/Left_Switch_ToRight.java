@@ -13,9 +13,9 @@ import systems.subsystems.MechDriveTrain.MechDrivingDirection;
 public class Left_Switch_ToRight extends CommandGroup {
 
     public Left_Switch_ToRight() {
-    	addSequential(new Timeout(3));
-        addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 20, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
-    	addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, -500, RobotMap.SIDEENCODER, RobotMap.GYROKP, MechDrivingDirection.Sideways));
-        addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 265, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
+//    	addSequential(new Timeout(3));
+//        addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 20, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
+//    	addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, -500, RobotMap.SIDEENCODER, RobotMap.GYROKP, MechDrivingDirection.Sideways));
+//        addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 265, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
     }
 }

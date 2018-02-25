@@ -31,51 +31,55 @@ public class AutonomusChooser {
 	public AutonomusChooser()
 	{
 		LLautoChooser.addDefault("LL:", new empty());
-		LLautoChooser.addObject("Left_Switch_ToLeft", new Left_Switch_ToLeft());
-		LLautoChooser.addObject("Left_Scale_ToLeft", new Left_Scale_ToLeft());
-		LLautoChooser.addObject("Left_Exchange", new Left_Exchange());
+		LLautoChooser.addObject("Center_Switch_ToRight", new Center_Switch_ToRight());
 		LLautoChooser.addObject("Center_Switch_ToLeft", new Center_Switch_ToLeft());
-		LLautoChooser.addObject("Center_Scale_ToLeft", new Center_Scale_ToLeft());
-		LLautoChooser.addObject("Center_Exchange", new Center_Exchange());
-		LLautoChooser.addObject("Right_Switch_ToLeft", new Right_Switch_ToLeft());
-		LLautoChooser.addObject("Right_Scale_ToLeft", new Right_Scale_ToLeft());
-		LLautoChooser.addObject("Right_Exchange", new Right_Exchange());
+//		LLautoChooser.addObject("Left_Switch_ToLeft", new Left_Switch_ToLeft());
+//		LLautoChooser.addObject("Left_Scale_ToLeft", new Left_Scale_ToLeft());
+//		LLautoChooser.addObject("Left_Exchange", new Left_Exchange());
+//		LLautoChooser.addObject("Center_Scale_ToLeft", new Center_Scale_ToLeft());
+//		LLautoChooser.addObject("Center_Exchange", new Center_Exchange());
+//		LLautoChooser.addObject("Right_Switch_ToLeft", new Right_Switch_ToLeft());
+//		LLautoChooser.addObject("Right_Scale_ToLeft", new Right_Scale_ToLeft());
+//		LLautoChooser.addObject("Right_Exchange", new Right_Exchange());
 		SmartDashboard.putData("LLautoChooser", LLautoChooser);
 		
 		LRautoChooser.addDefault("LR:", new empty());
-		LRautoChooser.addObject("Left_Switch_ToLeft", new Left_Switch_ToLeft());
-		LRautoChooser.addObject("Left_Scale_ToRight", new Left_Scale_ToRight());
-		LRautoChooser.addObject("Left_Exchange", new Left_Exchange());
+		LRautoChooser.addObject("Center_Switch_ToRight", new Center_Switch_ToRight());
 		LRautoChooser.addObject("Center_Switch_ToLeft", new Center_Switch_ToLeft());
-		LRautoChooser.addObject("Center_Scale_ToRight", new Center_Scale_ToRight());
-		LRautoChooser.addObject("Center_Exchange", new Center_Exchange());
-		LRautoChooser.addObject("Right_Switch_ToLeft", new Right_Switch_ToLeft());
-		LRautoChooser.addObject("Right_Scale_ToRight", new Right_Scale_ToRight());
-		LRautoChooser.addObject("Right_Exchange", new Right_Exchange());
+//		LRautoChooser.addObject("Left_Switch_ToLeft", new Left_Switch_ToLeft());
+//		LRautoChooser.addObject("Left_Scale_ToRight", new Left_Scale_ToRight());
+//		LRautoChooser.addObject("Left_Exchange", new Left_Exchange());
+//		LRautoChooser.addObject("Center_Scale_ToRight", new Center_Scale_ToRight());
+//		LRautoChooser.addObject("Center_Exchange", new Center_Exchange());
+//		LRautoChooser.addObject("Right_Switch_ToLeft", new Right_Switch_ToLeft());
+//		LRautoChooser.addObject("Right_Scale_ToRight", new Right_Scale_ToRight());
+//		LRautoChooser.addObject("Right_Exchange", new Right_Exchange());
 		SmartDashboard.putData("LRautoChooser", LRautoChooser);
 		
 		RLautoChooser.addDefault("RL:", new empty());
-		RLautoChooser.addObject("Left_Switch_ToRight", new Left_Switch_ToRight());
-		RLautoChooser.addObject("Left_Scale_ToLeft", new Left_Scale_ToLeft());
-		RLautoChooser.addObject("Left_Exchange", new Left_Exchange());
 		RLautoChooser.addObject("Center_Switch_ToRight", new Center_Switch_ToRight());
-		RLautoChooser.addObject("Center_Scale_ToLeft", new Center_Scale_ToLeft());
-		RLautoChooser.addObject("Center_Exchange", new Center_Exchange());
-		RLautoChooser.addObject("Right_Switch_ToRight", new Right_Switch_ToRight());
-		RLautoChooser.addObject("Right_Scale_ToLeft", new Right_Scale_ToLeft());
-		RLautoChooser.addObject("Right_Exchange", new Right_Exchange());
+		RLautoChooser.addObject("Center_Switch_ToLeft", new Center_Switch_ToLeft());
+//		RLautoChooser.addObject("Center_Scale_ToLeft", new Center_Scale_ToLeft());
+//		RLautoChooser.addObject("Left_Switch_ToRight", new Left_Switch_ToRight());
+//		RLautoChooser.addObject("Left_Scale_ToLeft", new Left_Scale_ToLeft());
+//		RLautoChooser.addObject("Left_Exchange", new Left_Exchange());
+//		RLautoChooser.addObject("Center_Exchange", new Center_Exchange());
+//		RLautoChooser.addObject("Right_Switch_ToRight", new Right_Switch_ToRight());
+//		RLautoChooser.addObject("Right_Scale_ToLeft", new Right_Scale_ToLeft());
+//		RLautoChooser.addObject("Right_Exchange", new Right_Exchange());
 		SmartDashboard.putData("RLautoChooser", RLautoChooser);
 		
 		RRautoChooser.addDefault("RR:", new empty());
-		RRautoChooser.addObject("Left_Switch_ToRight", new Left_Switch_ToRight());
-		RRautoChooser.addObject("Left_Scale_ToRight", new Left_Scale_ToRight());
-		RRautoChooser.addObject("Left_Exchange", new Left_Exchange());
 		RRautoChooser.addObject("Center_Switch_ToRight", new Center_Switch_ToRight());
-		RRautoChooser.addObject("Center_Scale_ToRight", new Center_Scale_ToRight());
-		RRautoChooser.addObject("Center_Exchange", new Center_Exchange());
-		RRautoChooser.addObject("Right_Switch_ToRight", new Right_Switch_ToRight());
-		RRautoChooser.addObject("Right_Scale_ToRight", new Right_Scale_ToRight());
-		RRautoChooser.addObject("Right_Exchange", new Right_Exchange());
+		RRautoChooser.addObject("Center_Switch_ToLeft", new Center_Switch_ToLeft());
+//		RRautoChooser.addObject("Left_Switch_ToRight", new Left_Switch_ToRight());
+//		RRautoChooser.addObject("Left_Scale_ToRight", new Left_Scale_ToRight());
+//		RRautoChooser.addObject("Left_Exchange", new Left_Exchange());
+//		RRautoChooser.addObject("Center_Scale_ToRight", new Center_Scale_ToRight());
+//		RRautoChooser.addObject("Center_Exchange", new Center_Exchange());
+//		RRautoChooser.addObject("Right_Switch_ToRight", new Right_Switch_ToRight());
+//		RRautoChooser.addObject("Right_Scale_ToRight", new Right_Scale_ToRight());
+//		RRautoChooser.addObject("Right_Exchange", new Right_Exchange());
 		SmartDashboard.putData("RRautoChooser", RRautoChooser);
 	}
 	

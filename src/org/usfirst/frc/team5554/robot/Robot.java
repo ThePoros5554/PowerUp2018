@@ -7,7 +7,6 @@
 
 package org.usfirst.frc.team5554.robot;
 
-import commands.ActivateMechSys;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -25,15 +24,12 @@ import systems.subsystems.MechDriveTrain;
 import systems.subsystems.MechDriveTrain.MechDriveTypes;
 import systems.subsystems.MechDriveTrain.MechPidAction;
 import systems.subsystems.MechSys;
-import systems.subsystems.PidActionSubsys;
 
 public class Robot extends TimedRobot 
 {
 	private MechSys elevator;
-	private MechSys rightRamp;
-	private MechSys climb;
-	private MechSys leftRamp;
 	private MechSys feederAxis;
+	private MechSys climb;
 	private MechSys feeder;
 
 	private Victor rearRightMotor;
@@ -62,7 +58,7 @@ public class Robot extends TimedRobot
 	public void robotInit() 
 	{
 		this.elevator = new MechSys(RobotMap.ELEVATORPORT);
-		this.elevator.SetIsReversed(true);
+		this.elevator.SetIsLookedReversed(true);
 		this.climb = new MechSys(RobotMap.RIGHTCLIBPORT, RobotMap.LEFTCLIMBPORT);
 		this.feederAxis = new MechSys(RobotMap.FEEDERAXISPORT);
 		this.feeder = new MechSys(RobotMap.RIGHTFEEDERPORT, RobotMap.LEFTFEEDERPORT);
@@ -101,7 +97,6 @@ public class Robot extends TimedRobot
 		RobotManager.GetDriveTrain().SetMinRotateValue(0.1);
 		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMinTwistValue(0.15);	
 		RobotManager.GetDriveTrain().SetIsReversed(false);
-		RobotManager.setRanged(3, 1, -1, true);
 		
 		RobotMap.FORWARDENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
 		RobotMap.SIDEENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
@@ -118,34 +113,42 @@ public class Robot extends TimedRobot
 		turnNintyLeft.SetInputRange(RobotMap.TURNNINTYLEFTSP, 0);
 		turnNintyLeft.SetPercentTolerance(RobotMap.TURNNINTYTOLERENCE);
 		
-		pot = new AnalogPotentiometer(0);
+		pot = new AnalogPotentiometer(3, 1000000);
 		
 		this.elevator.SetLimitSwitch(RobotMap.ELEVATORSWITCHES);
 		
-//		autoElevatorToSwitch = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (PidActionSubsys) new ActivateMechSys(RobotMap.ELEVATORTOSWITCHKEY));
+//		autoElevatorToSwitch = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (MechSys)RobotManager.GetSubsystem(RobotMap.ELEVATORKEY));
 //		RobotManager.AddPIDAction(RobotMap.ELEVATORTOSWITCHKEY, autoElevatorToSwitch);
 //		autoElevatorToSwitch.SetSetPoint(RobotMap.ELEVATORTOSWITCHSP);
 //		autoElevatorToSwitch.SetInputRange(RobotMap.ELEVATORTOSWITCHSP, 0);
 //		autoElevatorToSwitch.SetPercentTolerance(RobotMap.ELEVATORTOLERENCE);
-//		
-//		autoElevatorToScale = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (PidActionSubsys) new ActivateMechSys(RobotMap.ELEVATORTOSCALEKEY));
-//		RobotManager.AddPIDAction(RobotMap.ELEVATORTOSCALEKEY, autoElevatorToScale);
-//		autoElevatorToScale.SetSetPoint(RobotMap.ELEVATORTOSCALESP);
-//		autoElevatorToScale.SetInputRange(RobotMap.ELEVATORTOSCALESP, 0);
-//		autoElevatorToScale.SetPercentTolerance(RobotMap.ELEVATORTOLERENCE);
 
 		this.oi = new OI();
 		
-//		autoChooser = new AutonomusChooser();
+    	PIDAction turn = new PIDAction(RobotMap.TURNP, RobotMap.TURNI, RobotMap.TURND, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn.SetInputRange(0, 70);
+    	turn.SetSetPoint(70);
+    	turn.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN70KEY, turn);
+    	
+		autoChooser = new AutonomusChooser();
 		
 		gameData =  DriverStation.getInstance().getGameSpecificMessage();
 		
 		SmartDashboard.putBoolean("GameEnding", false);	
+		
+
 	}
 
 	@Override
 	public void disabledInit() 
 	{
+		RobotManager.GetDriveTrain().SetIsRanged(false);
+
+		if(this.autoSelected != null)
+		{
+			this.autoSelected.cancel();
+		}
 	}
 
 	@Override
@@ -155,12 +158,8 @@ public class Robot extends TimedRobot
 
 	@Override
 	public void autonomousInit() 
-	{	
-		if(this.autoSelected != null)
-		{
-			this.autoSelected.cancel();
-		}
-		
+	{	    	
+		RobotManager.GetDriveTrain().SetMaxOutput(1);
 		
 		if (gameData.charAt(0) == 'L')
 		{
@@ -186,14 +185,17 @@ public class Robot extends TimedRobot
 			
 		}
 		autoSelected.start();
-		System.out.println(autoSelected.toString());
-
 	}
 
 	@Override
 	public void autonomousPeriodic() 
 	{	
 		Scheduler.getInstance().run();
+
+		System.out.println("Forqard:  " + RobotMap.FORWARDENCODER.getDistance());
+//		System.out.println(gyro.getAngle());
+//		System.out.println("Side:    " + RobotMap.SIDEENCODER.getDistance());
+
 	}
 
 	
@@ -207,6 +209,8 @@ public class Robot extends TimedRobot
 		}
 		this.teleopStartTime = RobotController.getFPGATime();
 		SmartDashboard.putBoolean("GameEnding", false);
+		
+		RobotManager.setRanged(3, 1, -1, true);
 	}
 
 	@Override
@@ -217,6 +221,8 @@ public class Robot extends TimedRobot
 			SmartDashboard.putBoolean("GameEnding", true);
 		}
 		Scheduler.getInstance().run();
+		
+		System.out.println("aaa: " + gyro.getAngle());
 		
 //		System.out.println("bottom   " + RobotMap.ELEVATORBOTTOM.GetPosition());
 //		System.out.println("top   " + RobotMap.ELEVATORTOP.GetPosition());

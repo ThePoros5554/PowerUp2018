@@ -14,9 +14,8 @@ public class Right_Switch_ToRight extends CommandGroup {
 
     public Right_Switch_ToRight() {
     	// need to add "open the elevator" 
-    	addSequential(new RunPIDAction(RobotMap.ELEVATORTOSWITCHKEY));
-        addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 357, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
-        addSequential(new RunPIDAction(RobotMap.TURNNINTYLEFTKEY));
-        addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 61, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
+//        addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 357, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
+//        addSequential(new RunPIDAction(RobotMap.TURNNINTYLEFTKEY));
+//        addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 61, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
     }
 }

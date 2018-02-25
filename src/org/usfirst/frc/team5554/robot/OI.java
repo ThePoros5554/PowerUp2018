@@ -52,8 +52,8 @@ public class OI
 		elevatorDownButton = new AxisAsButton(RobotManager.GetSystemsJoy(), RobotMap.ELEVATORDOWNBUTTON);
 		feederAxisUpButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.FEEDERAXISUPBUTTON);
 		feederAxisDownButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.FEEDERAXISDOWNBUTTON);
-		climbUpButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.CLIMBUPBUTTON);
-		climbDownButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.CLIMBDOWNBUTTON);
+		climbUpButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.CLIMBUPBUTTON);
+		climbDownButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.CLIMBDOWNBUTTON);
 		feederInButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDERINBUTTON);
 		feederOutButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDEROUTBUTTON);
 		onlyRotateAxisButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.ONLYROTATEAXISBUTTON);

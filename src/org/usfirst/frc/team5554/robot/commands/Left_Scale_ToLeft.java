@@ -16,9 +16,9 @@ public class Left_Scale_ToLeft extends CommandGroup {
 
     public Left_Scale_ToLeft() {
     	// need to add "open the elevator" 
-    	addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 751, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
-        addSequential(new RunPIDAction(RobotMap.TURNNINTYRIGHTKEY));
-        addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 21, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
-        addParallel(new MechSysToLimit(RobotMap.ELEVATORKEY, SysPosition.Top));
+//    	addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 751, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
+//        addSequential(new RunPIDAction(RobotMap.TURNNINTYRIGHTKEY));
+//        addSequential(new MechDistanceGyroDrive(RobotMap.KP, RobotMap.KI, RobotMap.KD,  RobotMap.PERCENTTOLERANCE, 21, RobotMap.FORWARDENCODER, RobotMap.GYROKP, MechDrivingDirection.Forward));
+//        addParallel(new MechSysToLimit(RobotMap.ELEVATORKEY, SysPosition.Top));
     }
 }
