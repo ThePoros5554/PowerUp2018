@@ -86,13 +86,18 @@ public class RobotMap
 	public final static double SIDEGYROKP = 0.07;
 	public final static double ENCODERDISTANCEPERPULSE = 47.8536/360;
 	
-	public final static double TURNP = 0.0065;
-	public final static double TURNI = 0.00025;
-	public final static double TURND = 0.001;
+	public final static String TURN30RIGHTKEY = "TURN30RIGHTKEY";
+	public final static String TURN30LEFTKEY = "TURN30LEFTKEY";
+	public final static double TURN30P = 0.012;
+	public final static double TURN30I = 0.00053;
+	public final static double TURN30D = 0.005;
 	
-	public final static String TURN70KEY = "TURN70KEY";
-	public final static double TURNNINTYLEFTSP = -90;
-	public final static double TURNNINTYRIGHTSP = 90;
+	public final static String TURN90RIGHTKEY = "TURN90RIGHTKEY";
+	public final static String TURN90LEFTKEY = "TURN90LEFTKEY";
+	public final static double TURN90P = 0.006;
+	public final static double TURN90I = 0.00015;
+	public final static double TURN90D = 0.007;
+	
 	public final static double TURNNINTYTOLERENCE = 2;
 	
 	public final static double ELEVATORP = 0;

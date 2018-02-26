@@ -37,7 +37,7 @@ public class Robot extends TimedRobot
 	private Victor rearLeftMotor;
 	private Victor frontLeftMotor;
 	
-	private Potentiometer pot;
+//	private Potentiometer pot;
 
 	private ADXRS450_Gyro gyro;
 	
@@ -48,11 +48,6 @@ public class Robot extends TimedRobot
 	private AutonomusChooser autoChooser;
 	private CommandGroup autoSelected;
 	private String gameData;
-	
-	PIDAction turnNintyRight;
-	PIDAction turnNintyLeft;
-	PIDAction autoElevatorToSwitch;
-	PIDAction autoElevatorToScale;
 
 	@Override
 	public void robotInit() 
@@ -101,35 +96,36 @@ public class Robot extends TimedRobot
 		RobotMap.FORWARDENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
 		RobotMap.SIDEENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
 		
-		((MechDriveTrain) RobotManager.GetDriveTrain()).SetPIDOutput(MechPidAction.PidTurnInPlace);
-		turnNintyRight = new PIDAction(RobotMap.TURNP, RobotMap.TURNI, RobotMap.TURND, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain) RobotManager.GetDriveTrain());
-		RobotManager.AddPIDAction(RobotMap.TURNNINTYRIGHTKEY, turnNintyRight);
-		turnNintyRight.SetSetPoint(RobotMap.TURNNINTYRIGHTSP);
-		turnNintyRight.SetInputRange(0, RobotMap.TURNNINTYRIGHTSP);
-		turnNintyRight.SetPercentTolerance(RobotMap.TURNNINTYTOLERENCE);
-		turnNintyLeft = new PIDAction(RobotMap.TURNP, RobotMap.TURNI, RobotMap.TURND, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain) RobotManager.GetDriveTrain());
-		RobotManager.AddPIDAction(RobotMap.TURNNINTYLEFTKEY, turnNintyLeft);
-		turnNintyLeft.SetSetPoint(RobotMap.TURNNINTYLEFTSP);
-		turnNintyLeft.SetInputRange(RobotMap.TURNNINTYLEFTSP, 0);
-		turnNintyLeft.SetPercentTolerance(RobotMap.TURNNINTYTOLERENCE);
-		
-		pot = new AnalogPotentiometer(3, 1000000);
+//		pot = new AnalogPotentiometer(3, 1000000);
 		
 		this.elevator.SetLimitSwitch(RobotMap.ELEVATORSWITCHES);
-		
-//		autoElevatorToSwitch = new PIDAction(RobotMap.ELEVATORP, RobotMap.ELEVATORI, RobotMap.ELEVATORD, pot, (MechSys)RobotManager.GetSubsystem(RobotMap.ELEVATORKEY));
-//		RobotManager.AddPIDAction(RobotMap.ELEVATORTOSWITCHKEY, autoElevatorToSwitch);
-//		autoElevatorToSwitch.SetSetPoint(RobotMap.ELEVATORTOSWITCHSP);
-//		autoElevatorToSwitch.SetInputRange(RobotMap.ELEVATORTOSWITCHSP, 0);
-//		autoElevatorToSwitch.SetPercentTolerance(RobotMap.ELEVATORTOLERENCE);
 
 		this.oi = new OI();
 		
-    	PIDAction turn = new PIDAction(RobotMap.TURNP, RobotMap.TURNI, RobotMap.TURND, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
-    	turn.SetInputRange(0, 70);
-    	turn.SetSetPoint(70);
-    	turn.SetPercentTolerance(5);
-    	RobotManager.AddPIDAction(RobotMap.TURN70KEY, turn);
+		((MechDriveTrain) RobotManager.GetDriveTrain()).SetPIDOutput(MechPidAction.PidTurnInPlace);
+    	PIDAction turn30Right = new PIDAction(RobotMap.TURN30P, RobotMap.TURN30I, RobotMap.TURN30D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn30Right.SetInputRange(0, 30);
+    	turn30Right.SetSetPoint(30);
+    	turn30Right.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN30RIGHTKEY, turn30Right);
+    	
+    	PIDAction turn30Left = new PIDAction(RobotMap.TURN30P, RobotMap.TURN30I, RobotMap.TURN30D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn30Left.SetInputRange(-30, 0);
+    	turn30Left.SetSetPoint(-30);
+    	turn30Left.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN30LEFTKEY, turn30Left);
+    	
+    	PIDAction turn90Right = new PIDAction(RobotMap.TURN90P, RobotMap.TURN90I, RobotMap.TURN90D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn90Right.SetInputRange(0, 90);
+    	turn90Right.SetSetPoint(90);
+    	turn90Right.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN90RIGHTKEY, turn90Right);
+    	
+    	PIDAction turn90Left = new PIDAction(RobotMap.TURN90P, RobotMap.TURN90I, RobotMap.TURN90D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn90Left.SetInputRange(-90,0);
+    	turn90Left.SetSetPoint(-90);
+    	turn90Left.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN90LEFTKEY, turn90Left);
     	
 		autoChooser = new AutonomusChooser();
 		

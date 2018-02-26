@@ -17,7 +17,7 @@ public class Center_Switch_ToRight extends CommandGroup {
     {
     	addParallel(new TimedMechSys(RobotMap.ELEVATORKEY, -0.8,2));
     	addSequential(new MechDistanceGyroDrive(0.0035, 0.000035, 0.007,  5, 130, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward));
-    	addSequential(new Timeout(0.1));
+    	addSequential(new Timeout(0.2));
     	addParallel(new TimedMechSys(RobotMap.FEEDERAXISKEY, -0.5,2));
     	addSequential(new MechDistanceGyroDrive(0.04, 0.0000, 0.1,  5, 110, RobotMap.SIDEENCODER,false, RobotMap.SIDEGYROKP, MechDrivingDirection.Sideways));
     	addSequential(new Timeout(0.2));
