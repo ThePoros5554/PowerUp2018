@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5554.robot.commands;
 
+
 import org.usfirst.frc.team5554.robot.RobotMap;
 
 import commands.auto.RunPIDAction;
@@ -16,13 +17,15 @@ public class Left_Switch_ToLeft extends CommandGroup {
     public Left_Switch_ToLeft() 
     {
     	// need to add "open the elevator" 
-    	addParallel(new TimedMechSys(RobotMap.ELEVATORKEY, -0.8,2.3));
-    	addSequential(new MechDistanceGyroDrive(0.0032, 0, 0.008,  RobotMap.PERCENTTOLERANCE, 415, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward));
-    	addParallel(new TimedMechSys(RobotMap.FEEDERAXISKEY, -0.5,2));
+    	addParallel(new TimedMechSys(RobotMap.FEEDERAXISKEY, 0.2,2));
+    	addSequential(new MechDistanceGyroDrive(0.0023, 0.000012, 0.01,  RobotMap.PERCENTTOLERANCE, 370, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward));
     	addSequential(new Timeout(0.2));
-        addSequential(new RunPIDAction(RobotMap.TURN90LEFTKEY));
+        addSequential(new RunPIDAction(RobotMap.TURN90RIGHTKEY));
     	addSequential(new Timeout(0.2));
-        addSequential(new MechDistanceGyroDrive(0.006, 0.000035,0,  RobotMap.PERCENTTOLERANCE, 75, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 4));
-    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, 0.7,2));
+    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, 0.5,0.3));
+    	addSequential((new TimedMechSys(RobotMap.ELEVATORKEY, -0.6, RobotMap.ELEVATORSTAYUPSPEED,1.5)));
+        addSequential(new MechDistanceGyroDrive(0.006, 0.000015,0,  RobotMap.PERCENTTOLERANCE, 65, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 3));
+    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.35,2));
+    	
     }
 }

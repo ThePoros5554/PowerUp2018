@@ -8,7 +8,6 @@
 package org.usfirst.frc.team5554.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.RobotController;
@@ -16,7 +15,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import systems.PIDAction;
 import systems.RobotManager;
@@ -37,6 +35,7 @@ public class Robot extends TimedRobot
 	private Victor rearLeftMotor;
 	private Victor frontLeftMotor;
 	
+	private CameraThread streamer;
 //	private Potentiometer pot;
 
 	private ADXRS450_Gyro gyro;
@@ -53,10 +52,12 @@ public class Robot extends TimedRobot
 	public void robotInit() 
 	{
 		this.elevator = new MechSys(RobotMap.ELEVATORPORT);
-		this.elevator.SetIsLookedReversed(true);
-		this.climb = new MechSys(RobotMap.RIGHTCLIBPORT, RobotMap.LEFTCLIMBPORT);
+		this.climb = new MechSys(RobotMap.CLIMBPORT);
 		this.feederAxis = new MechSys(RobotMap.FEEDERAXISPORT);
-		this.feeder = new MechSys(RobotMap.RIGHTFEEDERPORT, RobotMap.LEFTFEEDERPORT);
+		this.feeder = new MechSys(RobotMap.FEEDERPORT);
+		
+		this.elevator.SetIsLookedReversed(true);
+		this.feederAxis.SetIsLookedReversed(true);
 		
 		this.frontLeftMotor = new Victor(RobotMap.FRONTLEFTMOTORPORT);
 		this.rearLeftMotor = new Victor(RobotMap.REARLEFTMOTORPORT);
@@ -68,16 +69,6 @@ public class Robot extends TimedRobot
 		RobotManager.AddSubsystem(RobotMap.FEEDERAXISKEY, this.feederAxis);
 		RobotManager.AddSubsystem(RobotMap.CLIMBKEY, this.climb);
 		RobotManager.AddSubsystem(RobotMap.FEEDERKEY, this.feeder);
-		
-		RobotManager.AddSpeed(RobotMap.ELEVATORUPSPEED, (double) -0.8);
-		RobotManager.AddSpeed(RobotMap.ELEVATORDOWNSPEED, (double) 0.8);
-		RobotManager.AddSpeed(RobotMap.FEEDERAXISUPSPEED, (double) 0.8);
-		RobotManager.AddSpeed(RobotMap.FEEDERAXISDOWNSPEED, (double) -0.8);
-		RobotManager.AddSpeed(RobotMap.FEEDERINKEY, (double) -0.8);
-		RobotManager.AddSpeed(RobotMap.FEEDEROUTKEY, (double) 0.8);
-		RobotManager.AddSpeed(RobotMap.CLIMBUPKEY, (double) -0.8);
-		RobotManager.AddSpeed(RobotMap.CLIMBDOWNKEY, (double) 0.8);
-		RobotManager.AddSpeed(RobotMap.TGDS_LEFTAUTONOMUS, 0.5);
 				
 		RobotManager.SetDriveJoy(0);
 		RobotManager.SetSystemsJoy(1);
@@ -98,7 +89,11 @@ public class Robot extends TimedRobot
 		
 //		pot = new AnalogPotentiometer(3, 1000000);
 		
-		this.elevator.SetLimitSwitch(RobotMap.ELEVATORSWITCHES);
+//		elevator.SetLimitSwitch(RobotMap.ELEVATORSWITCHES);
+		this.elevator.SetLimitSwitch(RobotMap.ELEVATORBOTTOM);
+		this.climb.SetLimitSwitch(RobotMap.CLIMBTOPSWITCH);
+		this.feeder.SetLimitSwitch(RobotMap.FEEDERSWITCH);
+		this.feederAxis.SetLimitSwitch(RobotMap.FEEDERAXISSWITCH);
 
 		this.oi = new OI();
 		
@@ -116,24 +111,24 @@ public class Robot extends TimedRobot
     	RobotManager.AddPIDAction(RobotMap.TURN30LEFTKEY, turn30Left);
     	
     	PIDAction turn90Right = new PIDAction(RobotMap.TURN90P, RobotMap.TURN90I, RobotMap.TURN90D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
-    	turn90Right.SetInputRange(0, 90);
-    	turn90Right.SetSetPoint(90);
+    	turn90Right.SetInputRange(0, 88);
+    	turn90Right.SetSetPoint(88);
     	turn90Right.SetPercentTolerance(5);
     	RobotManager.AddPIDAction(RobotMap.TURN90RIGHTKEY, turn90Right);
     	
     	PIDAction turn90Left = new PIDAction(RobotMap.TURN90P, RobotMap.TURN90I, RobotMap.TURN90D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
-    	turn90Left.SetInputRange(-90,0);
-    	turn90Left.SetSetPoint(-90);
+    	turn90Left.SetInputRange(-88,0);
+    	turn90Left.SetSetPoint(-88);
     	turn90Left.SetPercentTolerance(5);
     	RobotManager.AddPIDAction(RobotMap.TURN90LEFTKEY, turn90Left);
     	
 		autoChooser = new AutonomusChooser();
 		
-		gameData =  DriverStation.getInstance().getGameSpecificMessage();
-		
 		SmartDashboard.putBoolean("GameEnding", false);	
 		
-
+		streamer = new CameraThread(RobotManager.GetSystemsJoy());
+		streamer.start();
+		
 	}
 
 	@Override
@@ -156,7 +151,8 @@ public class Robot extends TimedRobot
 	public void autonomousInit() 
 	{	    	
 		RobotManager.GetDriveTrain().SetMaxOutput(1);
-		
+		RobotManager.GetGyro().reset();
+		gameData =  DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.charAt(0) == 'L')
 		{
 			if (gameData.charAt(1) == 'L')
@@ -188,8 +184,8 @@ public class Robot extends TimedRobot
 	{	
 		Scheduler.getInstance().run();
 
-		System.out.println("Forqard:  " + RobotMap.FORWARDENCODER.getDistance());
-//		System.out.println(gyro.getAngle());
+//		System.out.println("Forward:  " + RobotMap.FORWARDENCODER.getDistance());
+		System.out.println(gyro.getAngle());
 //		System.out.println("Side:    " + RobotMap.SIDEENCODER.getDistance());
 
 	}
@@ -207,6 +203,11 @@ public class Robot extends TimedRobot
 		SmartDashboard.putBoolean("GameEnding", false);
 		
 		RobotManager.setRanged(3, 1, -1, true);
+		
+		RobotManager.GetGyro().reset();
+
+		
+		RobotMap.SIDEENCODER.reset();
 	}
 
 	@Override
@@ -218,11 +219,18 @@ public class Robot extends TimedRobot
 		}
 		Scheduler.getInstance().run();
 		
-		System.out.println("aaa: " + gyro.getAngle());
+//		System.out.println(RobotMap.FEEDERSWITCH.GetPosition());
+//		System.out.println("aaa: " + gyro.getAngle());
 		
 //		System.out.println("bottom   " + RobotMap.ELEVATORBOTTOM.GetPosition());
 //		System.out.println("top   " + RobotMap.ELEVATORTOP.GetPosition());
 //		System.out.println("dasdasd  " + RobotMap.ELEVATORSWITCHES.GetPosition());
+//		System.out.println("dasdasd  " + RobotMap.ELEVATORSWITCHES.GetPosition());
+//		System.out.println("dasdasd  " + RobotMap.CLIMBTOPSWITCH.GetPosition());
+		
+//		System.out.println("Forward:  " + RobotMap.FORWARDENCODER.getDistance());
+//		System.out.println("Gyro:  "+ gyro.getAngle());
+//		System.out.println("Side:  " + RobotMap.SIDEENCODER.getDistance());
 	}
 
 	@Override

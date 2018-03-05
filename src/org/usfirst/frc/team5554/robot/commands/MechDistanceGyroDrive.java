@@ -22,7 +22,8 @@ public class MechDistanceGyroDrive extends Command {
 	private ControllerOutput encPIDOutput;
 	
 	private Gyro gyro;
-	private boolean gyroToZero;
+	private boolean gyroToZero = false;
+	private boolean customSetPoint = false;
 	private double gyroSetPoint;
 	private double gyroKP;
 	
@@ -41,6 +42,26 @@ public class MechDistanceGyroDrive extends Command {
     {
     	super(timeout);
     	this.SetControllers(kP, kI, kD, percentTolerance, setPoint, enc ,gyroToZero, gyroKP, drivingDirection);
+    	
+    	this.isTimed = true;
+    }
+    
+    public MechDistanceGyroDrive(double kP, double kI, double kD,  double percentTolerance, double setPoint, Encoder enc, double gyroSetPoint, double gyroKP, MechDrivingDirection drivingDirection) 
+    {
+
+    	this.SetControllers(kP, kI, kD, percentTolerance, setPoint, enc, gyroToZero, gyroKP, drivingDirection);
+    	
+    	this.customSetPoint = true;
+    	this.gyroSetPoint = gyroSetPoint;
+    }
+    
+    public MechDistanceGyroDrive(double kP, double kI, double kD,  double percentTolerance, double setPoint, Encoder enc, double gyroSetPoint, double gyroKP, MechDrivingDirection drivingDirection, double timeout) 
+    {
+    	super(timeout);
+    	this.SetControllers(kP, kI, kD, percentTolerance, setPoint, enc ,gyroToZero, gyroKP, drivingDirection);
+    	
+    	this.customSetPoint = true;
+    	this.gyroSetPoint = gyroSetPoint;
     	
     	this.isTimed = true;
     }
@@ -76,15 +97,17 @@ public class MechDistanceGyroDrive extends Command {
 
     protected void initialize() 
     {
-
-    	if(this.gyroToZero)
+    	if(!this.customSetPoint)
     	{
-    		this.gyroSetPoint = this.gyro.getAngle();
-    	}
-    	else
-    	{
-    		this.gyro.reset();
-    		this.gyroSetPoint = 0;
+    		if(this.gyroToZero)
+    		{
+    			this.gyroSetPoint = this.gyro.getAngle();
+    		}
+    		else
+    		{
+    			this.gyro.reset();
+    			this.gyroSetPoint = 0;
+    		}
     	}
     	this.enc.reset();
     	
@@ -97,14 +120,16 @@ public class MechDistanceGyroDrive extends Command {
         double angle;
         double output;
         
+        System.out.println("sp: sp: " + this.gyroSetPoint);
+        
         if(this.driveTrain.IsReversed() == true)
         {
-        	angle = (this.gyroSetPoint - gyro.getAngle()) * (this.gyroKP);
+        	angle = (this.gyroSetPoint - gyro.getAngle()) * (-this.gyroKP);
         	output = this.encPIDOutput.GetOutput();
         }
         else
         {
-        	angle = gyro.getAngle() * (-this.gyroKP);
+        	angle = (this.gyroSetPoint - gyro.getAngle()) * (this.gyroKP);
         	output = -this.encPIDOutput.GetOutput();
         }
         if (drivingDirection == MechDrivingDirection.Forward)

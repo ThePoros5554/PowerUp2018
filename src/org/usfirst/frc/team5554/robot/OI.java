@@ -9,26 +9,32 @@ package org.usfirst.frc.team5554.robot;
 
 import commands.ActivateMechSys;
 import commands.DisableJoyAxis;
+import commands.ReverseDriveTrain;
+import commands.SetAllLimits;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import systems.RobotManager;
-import triggers.AxisAsButton;
+import triggers.JoyAxis;
 import triggers.SmartJoystick;
 
 public class OI 
 {
-	private AxisAsButton elevatorUpButton;
-	private AxisAsButton elevatorDownButton;
+	private JoyAxis elevatorUpAxis;
+	private JoyAxis elevatorDownAxis;
 	private Button feederAxisUpButton;
 	private Button feederAxisDownButton;
 	private Button climbUpButton;
 	private Button climbDownButton;
-	private Button feederInButton;
-	private Button feederOutButton;
+	private Button feederInDriveJoyButton;
+	private Button feederOutDriveJoyButton;
+	private Button feederInSystemJoyButton;
+	private Button feederOutSystemJoyButton;
+	private Button cancellSwitchesButton;
+	private Button enableSwitchesButton;
 	
 	private Button onlyRotateAxisButton;
 	private Button onlySpeedButton;
-	
+	private Button reverseDriveButton;
 	
 	private ActivateMechSys elevatorUp;
 	private ActivateMechSys elevatorDown;
@@ -46,27 +52,39 @@ public class OI
 	private DisableJoyAxis enabledRotate;
 	private DisableJoyAxis enabledTwist;
 	
+	private SetAllLimits cancellSwitches;
+	private SetAllLimits enableSwitches;
+	
+	private ReverseDriveTrain reverseDriveTrain;
+	
 	public OI()
 	{
-		elevatorUpButton = new AxisAsButton(RobotManager.GetSystemsJoy(), RobotMap.ELEVATORUPBUTTON);
-		elevatorDownButton = new AxisAsButton(RobotManager.GetSystemsJoy(), RobotMap.ELEVATORDOWNBUTTON);
+		elevatorUpAxis = new JoyAxis(RobotManager.GetSystemsJoy(), RobotMap.ELEVATORUPBUTTON, 0, -1);
+		elevatorDownAxis = new JoyAxis(RobotManager.GetSystemsJoy(), RobotMap.ELEVATORDOWNBUTTON, 0, 1);
 		feederAxisUpButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.FEEDERAXISUPBUTTON);
 		feederAxisDownButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.FEEDERAXISDOWNBUTTON);
 		climbUpButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.CLIMBUPBUTTON);
 		climbDownButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.CLIMBDOWNBUTTON);
-		feederInButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDERINBUTTON);
-		feederOutButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDEROUTBUTTON);
+		feederInDriveJoyButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDERINDRIVEJOYBUTTON);
+		feederOutDriveJoyButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.FEEDEROUTDRIVEJOYBUTTON);
+		feederInSystemJoyButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.FEEDERINSYSTEMJOYBUTTON);
+		feederOutSystemJoyButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.FEEDEROUTSYSTEMJOYBUTTON);
 		onlyRotateAxisButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.ONLYROTATEAXISBUTTON);
-		onlySpeedButton = new	JoystickButton(RobotManager.GetDriveJoy(), RobotMap.ONLYSPEEDBUTTON);
+		onlySpeedButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.ONLYSPEEDBUTTON);
+		reverseDriveButton = new JoystickButton(RobotManager.GetDriveJoy(), RobotMap.REVERSEDRIVEBUTTON);
+		cancellSwitchesButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.CANCELLSWITCHESBUTTON);
+		enableSwitchesButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.ENABLESWITCHESBUTTON);
 				
-		elevatorUp = new ActivateMechSys(RobotMap.ELEVATORKEY, RobotMap.ELEVATORUPSPEED);
-		elevatorDown = new ActivateMechSys(RobotMap.ELEVATORKEY, RobotMap.ELEVATORDOWNSPEED);
+		elevatorUp = new ActivateMechSys(RobotMap.ELEVATORKEY, this.elevatorUpAxis, RobotMap.ELEVATORSTAYUPSPEED);
+		elevatorDown = new ActivateMechSys(RobotMap.ELEVATORKEY, this.elevatorDownAxis, RobotMap.ELEVATORSTAYUPSPEED);
 		feederAxisUp = new ActivateMechSys(RobotMap.FEEDERAXISKEY, RobotMap.FEEDERAXISUPSPEED);
 		feederAxisDown = new ActivateMechSys(RobotMap.FEEDERAXISKEY, RobotMap.FEEDERAXISDOWNSPEED);
-		climbUp = new ActivateMechSys(RobotMap.CLIMBKEY, RobotMap.CLIMBUPKEY);
-		climbDown = new ActivateMechSys(RobotMap.CLIMBKEY, RobotMap.CLIMBDOWNKEY);
-		feederIn = new ActivateMechSys(RobotMap.FEEDERKEY, RobotMap.FEEDERINKEY);
-		feederOut = new ActivateMechSys(RobotMap.FEEDERKEY, RobotMap.FEEDEROUTKEY);
+		climbUp = new ActivateMechSys(RobotMap.CLIMBKEY, RobotMap.CLIMBUPSPEED);
+		climbDown = new ActivateMechSys(RobotMap.CLIMBKEY, RobotMap.CLIMBDOWNSPEED);
+		feederIn = new ActivateMechSys(RobotMap.FEEDERKEY, RobotMap.FEEDERINSPEED);
+		feederOut = new ActivateMechSys(RobotMap.FEEDERKEY, RobotMap.FEEDEROUTSPEED);
+		
+		reverseDriveTrain = new ReverseDriveTrain();
 		
 		disabledSpeed = new DisableJoyAxis((SmartJoystick) RobotManager.GetDriveJoy(), RobotMap.SPEEDAXIS, true);
 		disabledRotate = new DisableJoyAxis((SmartJoystick) RobotManager.GetDriveJoy(), RobotMap.ROTATEAXIS, true);
@@ -75,14 +93,19 @@ public class OI
 		enabledRotate = new DisableJoyAxis((SmartJoystick) RobotManager.GetDriveJoy(), RobotMap.ROTATEAXIS, false);
 		enabledTwist = new DisableJoyAxis((SmartJoystick) RobotManager.GetDriveJoy(), RobotMap.TWISTAXIS, false);
 		
-		elevatorUpButton.whileActive(elevatorUp);
-		elevatorDownButton.whileActive(elevatorDown);
+		cancellSwitches = new SetAllLimits(false);
+		enableSwitches = new SetAllLimits(true);
+		
+		elevatorUpAxis.whileActive(elevatorUp);
+		elevatorDownAxis.whileActive(elevatorDown);
 		feederAxisUpButton.whileActive(feederAxisUp);
 		feederAxisDownButton.whileActive(feederAxisDown);
 		climbUpButton.whileHeld(climbUp);
 		climbDownButton.whileHeld(climbDown);
-		feederInButton.whileHeld(feederIn);
-		feederOutButton.whileHeld(feederOut);		
+		feederInDriveJoyButton.whileHeld(feederIn);
+		feederOutDriveJoyButton.whileHeld(feederOut);
+		feederInSystemJoyButton.whileHeld(feederIn);
+		feederOutSystemJoyButton.whileHeld(feederOut);
 		onlyRotateAxisButton.whenPressed(disabledSpeed);
 		onlyRotateAxisButton.whenPressed(disabledTwist);
 		onlyRotateAxisButton.whenReleased(enabledSpeed);
@@ -91,5 +114,8 @@ public class OI
 		onlySpeedButton.whenPressed(disabledTwist);
 		onlySpeedButton.whenReleased(enabledRotate);
 		onlySpeedButton.whenReleased(enabledTwist);
+		reverseDriveButton.whenPressed(reverseDriveTrain);
+		cancellSwitchesButton.whenPressed(cancellSwitches);
+		enableSwitchesButton.whenPressed(enableSwitches);
 	}
 }

@@ -38,8 +38,9 @@ public class AutonomusChooser {
 		LLautoChooser.addObject("Left_Switch_ToLeft", new Left_Switch_ToLeft());
 		LLautoChooser.addObject("Right_Switch_ToRight", new Right_Switch_ToRight());
 		LLautoChooser.addObject("Right_Scale_ToRight", new Right_Scale_ToRight());
+		LLautoChooser.addObject("Left_Switch_ToRight", new Left_Switch_ToRight());
+		LLautoChooser.addObject("Right_Switch_ToLeft", new Right_Switch_ToLeft());
 		LLautoChooser.addObject("Forward", new Forward());
-//		LLautoChooser.addObject("Left_Exchange", new Left_Exchange());
 //		LLautoChooser.addObject("Center_Scale_ToLeft", new Center_Scale_ToLeft());
 //		LLautoChooser.addObject("Center_Exchange", new Center_Exchange());
 //		LLautoChooser.addObject("Right_Switch_ToLeft", new Right_Switch_ToLeft());
@@ -54,6 +55,8 @@ public class AutonomusChooser {
 		LRautoChooser.addObject("Left_Switch_ToLeft", new Left_Switch_ToLeft());
 		LRautoChooser.addObject("Right_Switch_ToRight", new Right_Switch_ToRight());
 		LRautoChooser.addObject("Right_Scale_ToRight", new Right_Scale_ToRight());
+		LRautoChooser.addObject("Left_Switch_ToRight", new Left_Switch_ToRight());
+		LRautoChooser.addObject("Right_Switch_ToLeft", new Right_Switch_ToLeft());
 		LRautoChooser.addObject("Forward", new Forward());
 //		LRautoChooser.addObject("Left_Exchange", new Left_Exchange());
 //		LRautoChooser.addObject("Center_Scale_ToRight", new Center_Scale_ToRight());
@@ -68,6 +71,8 @@ public class AutonomusChooser {
 		RLautoChooser.addObject("Left_Switch_ToLeft", new Left_Switch_ToLeft());
 		RLautoChooser.addObject("Right_Switch_ToRight", new Right_Switch_ToRight());
 		RLautoChooser.addObject("Right_Scale_ToRight", new Right_Scale_ToRight());
+		RLautoChooser.addObject("Left_Switch_ToRight", new Left_Switch_ToRight());
+		RLautoChooser.addObject("Right_Switch_ToLeft", new Right_Switch_ToLeft());
 		RLautoChooser.addObject("Forward", new Forward());
 //		RLautoChooser.addObject("Center_Scale_ToLeft", new Center_Scale_ToLeft());
 //		RLautoChooser.addObject("Left_Exchange", new Left_Exchange());
@@ -82,6 +87,8 @@ public class AutonomusChooser {
 		RRautoChooser.addObject("Left_Switch_ToLeft", new Left_Switch_ToLeft());
 		RRautoChooser.addObject("Right_Switch_ToRight", new Right_Switch_ToRight());
 		RRautoChooser.addObject("Right_Scale_ToRight", new Right_Scale_ToRight());
+		RRautoChooser.addObject("Left_Switch_ToRight", new Left_Switch_ToRight());
+		RRautoChooser.addObject("Right_Switch_ToLeft", new Right_Switch_ToLeft());
 		RRautoChooser.addObject("Forward", new Forward());
 //		RRautoChooser.addObject("Left_Exchange", new Left_Exchange());
 //		RRautoChooser.addObject("Center_Scale_ToRight", new Center_Scale_ToRight());
