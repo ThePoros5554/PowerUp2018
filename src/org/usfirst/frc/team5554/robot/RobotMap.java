@@ -53,7 +53,7 @@ public class RobotMap
 	public final static String ELEVATORTOSCALEKEY = "elevatorToScale";
 	
 	public final static double ELEVATORUPSPEED = -0.7;
-	public final static double ELEVATORSTAYUPSPEED = -0.22;
+	public final static double ELEVATORSTAYUPSPEED = -0.19;
 	public final static double ELEVATORDOWNSPEED = 0.3;
 	public final static double FEEDERAXISUPSPEED = -0.8;
 	public final static double FEEDERAXISDOWNSPEED = 0.8;
@@ -116,6 +116,6 @@ public class RobotMap
     public final static LimitSwitch FEEDERSWITCH = new LimitSwitch(9, SysPosition.Top, false);
 	
     public static final int NUMBER_OF_CAMERAS = 1;
-	public static final int LIVECAMERA = 0;
+	public static final int LIVECAMERA = 1;
 	
 }

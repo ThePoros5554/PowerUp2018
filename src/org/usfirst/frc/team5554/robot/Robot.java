@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5554.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.RobotController;
@@ -40,13 +41,15 @@ public class Robot extends TimedRobot
 
 	private ADXRS450_Gyro gyro;
 	
-	private double teleopStartTime;
-
 	private OI oi;
 	
 	private AutonomusChooser autoChooser;
 	private CommandGroup autoSelected;
 	private String gameData;
+	
+	private int start_time;
+	private int current_time;
+	private int full_game = 150; 
 
 	@Override
 	public void robotInit() 
@@ -123,11 +126,11 @@ public class Robot extends TimedRobot
     	RobotManager.AddPIDAction(RobotMap.TURN90LEFTKEY, turn90Left);
     	
 		autoChooser = new AutonomusChooser();
-		
-		SmartDashboard.putBoolean("GameEnding", false);	
-		
+
 		streamer = new CameraThread(RobotManager.GetSystemsJoy());
+		streamer.setDaemon(true);
 		streamer.start();
+//		CameraServer.getInstance().startAutomaticCapture();
 		
 	}
 
@@ -140,6 +143,10 @@ public class Robot extends TimedRobot
 		{
 			this.autoSelected.cancel();
 		}
+		
+		SmartDashboard.putBoolean("End Game", false);
+		SmartDashboard.putNumber("game time", 0);
+
 	}
 
 	@Override
@@ -188,6 +195,12 @@ public class Robot extends TimedRobot
 		System.out.println(gyro.getAngle());
 //		System.out.println("Side:    " + RobotMap.SIDEENCODER.getDistance());
 
+		if((full_game - (current_time - start_time)/1000000 > 0))
+		{
+			Long fpgaTime = RobotController.getFPGATime();
+			this.current_time = fpgaTime.intValue();
+			SmartDashboard.putNumber("game time", full_game - ((current_time  - start_time) / 1000000));
+		}
 	}
 
 	
@@ -199,8 +212,6 @@ public class Robot extends TimedRobot
 		{
 			this.autoSelected.cancel();
 		}
-		this.teleopStartTime = RobotController.getFPGATime();
-		SmartDashboard.putBoolean("GameEnding", false);
 		
 		RobotManager.setRanged(3, 1, -1, true);
 		
@@ -208,15 +219,14 @@ public class Robot extends TimedRobot
 
 		
 		RobotMap.SIDEENCODER.reset();
+		
+		Long fpgaTime = RobotController.getFPGATime();
+		this.start_time = fpgaTime.intValue();
 	}
 
 	@Override
 	public void teleopPeriodic() 
 	{
-		if(RobotController.getFPGATime() - teleopStartTime > 105000000)
-		{
-			SmartDashboard.putBoolean("GameEnding", true);
-		}
 		Scheduler.getInstance().run();
 		
 //		System.out.println(RobotMap.FEEDERSWITCH.GetPosition());
@@ -231,6 +241,31 @@ public class Robot extends TimedRobot
 //		System.out.println("Forward:  " + RobotMap.FORWARDENCODER.getDistance());
 //		System.out.println("Gyro:  "+ gyro.getAngle());
 //		System.out.println("Side:  " + RobotMap.SIDEENCODER.getDistance());
+		
+		
+		if(full_game - (current_time - start_time)/1000000 >= 0)
+		{
+			Long fpgaTime = RobotController.getFPGATime();
+			current_time = fpgaTime.intValue();
+			SmartDashboard.putNumber("game time", full_game - ((current_time  - start_time) / 1000000));
+		}
+
+		if ((current_time-start_time)/1000000 >= 110 && (current_time-start_time)/1000000 <= 115) 
+		{
+			if(SmartDashboard.getBoolean("End Game", true) == true)
+			{
+				SmartDashboard.putBoolean("End Game", false);
+			}
+			else
+			{
+				SmartDashboard.putBoolean("End Game", true);
+			}
+		}
+		else if ((current_time-start_time)/1000000 >= 115 )
+		{
+			SmartDashboard.putBoolean("End Game", true);
+		}
+
 	}
 
 	@Override
