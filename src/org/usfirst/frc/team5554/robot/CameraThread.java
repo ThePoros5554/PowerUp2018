@@ -1,12 +1,6 @@
 package org.usfirst.frc.team5554.robot;
 
-import java.util.HashMap;
-import java.util.Map;
 
-import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
-
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import vision.CameraHandler;
 import vision.Stream;

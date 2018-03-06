@@ -1,18 +1,11 @@
 package org.usfirst.frc.team5554.robot;
 
-import org.usfirst.frc.team5554.robot.commands.Center_Exchange;
-import org.usfirst.frc.team5554.robot.commands.Center_Scale_ToLeft;
-import org.usfirst.frc.team5554.robot.commands.Center_Scale_ToRight;
 import org.usfirst.frc.team5554.robot.commands.Center_Switch_ToLeft;
 import org.usfirst.frc.team5554.robot.commands.Center_Switch_ToRight;
 import org.usfirst.frc.team5554.robot.commands.Forward;
-import org.usfirst.frc.team5554.robot.commands.Left_Exchange;
 import org.usfirst.frc.team5554.robot.commands.Left_Scale_ToLeft;
-import org.usfirst.frc.team5554.robot.commands.Left_Scale_ToRight;
 import org.usfirst.frc.team5554.robot.commands.Left_Switch_ToLeft;
 import org.usfirst.frc.team5554.robot.commands.Left_Switch_ToRight;
-import org.usfirst.frc.team5554.robot.commands.Right_Exchange;
-import org.usfirst.frc.team5554.robot.commands.Right_Scale_ToLeft;
 import org.usfirst.frc.team5554.robot.commands.Right_Scale_ToRight;
 import org.usfirst.frc.team5554.robot.commands.Right_Switch_ToLeft;
 import org.usfirst.frc.team5554.robot.commands.Right_Switch_ToRight;
