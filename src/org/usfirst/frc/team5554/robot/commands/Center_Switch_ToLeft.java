@@ -20,19 +20,19 @@ public class Center_Switch_ToLeft extends CommandGroup {
     	
     	
     	
-//    	addParallel(new TimedMechSys(RobotMap.FEEDERAXISKEY, 0.25,2.3));
-		addSequential(new MechDistanceGyroDrive(0.0025, 0.000042, 0.007,  5, 250, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 4));
-//    	addSequential(new Timeout(0.2));
-//        addSequential(new RunPIDAction(RobotMap.TURN90LEFTKEY));
-//    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, 0.5,0.3));
-//    	addSequential(new MechDistanceGyroDrive(0.003, 0.000042, 0.007,  5, 150, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward));
-//    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, 0.5,0.3));
-//        addSequential(new RunPIDAction(RobotMap.TURN90RIGHTKEY));
-//    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, 0.5,0.3));
-//    	addParallel((new TimedMechSys(RobotMap.ELEVATORKEY, -0.7, RobotMap.ELEVATORSTAYUPSPEED, 1.5)));    
-//    	addSequential(new Timeout(0.2));
-//    	addSequential(new MechDistanceGyroDrive(0.003, 0.000065, 0.007,  5, 170, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 2.7));
-//    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.35,2));
+    	addParallel(new TimedMechSys(RobotMap.FEEDERAXISKEY, 0.25,2.3));
+    	addSequential(new MechDistanceGyroDrive(0.0035, 0.000042, 0.007,  5, 105, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward,4));
+    	addSequential(new Timeout(0.2));
+        addSequential(new RunPIDAction(RobotMap.TURN90LEFTKEY));
+    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, 0.5,0.3));
+    	addSequential(new MechDistanceGyroDrive(0.003, 0.000042, 0.007,  5, 150, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward));
+    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, 0.5,0.3));
+        addSequential(new RunPIDAction(RobotMap.TURN90RIGHTKEY));
+    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, 0.5,0.3));
+    	addParallel((new TimedMechSys(RobotMap.ELEVATORKEY, -0.7, RobotMap.ELEVATORSTAYUPSPEED, 1.5)));    
+    	addSequential(new Timeout(0.2));
+    	addSequential(new MechDistanceGyroDrive(0.003, 0.000065, 0.007,  5, 170, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 2.7));
+    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.35,2));
     	
     	
     	

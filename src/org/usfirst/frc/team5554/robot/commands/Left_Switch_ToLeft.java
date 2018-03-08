@@ -18,7 +18,7 @@ public class Left_Switch_ToLeft extends CommandGroup {
     {
     	// need to add "open the elevator" 
     	addParallel(new TimedMechSys(RobotMap.FEEDERAXISKEY, 0.2,2));
-    	addSequential(new MechDistanceGyroDrive(0.0023, 0.00003, 0.02,  RobotMap.PERCENTTOLERANCE, 325, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward,5));
+		addSequential(new MechDistanceGyroDrive(0.0025, 0.000042, 0.007,  5, 250, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 4));
     	addSequential(new Timeout(0.2));
         addSequential(new RunPIDAction(RobotMap.TURN90RIGHTKEY));
     	addSequential(new Timeout(0.2));
