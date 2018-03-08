@@ -22,11 +22,10 @@ public class Right_Scale_ToRight extends CommandGroup {
     	addSequential(new Timeout(0.3));
     	addSequential(new RunPIDAction(RobotMap.TURN30LEFTKEY));
     	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, 0.5,0.3));
-      	addSequential(new TimedMechSys(RobotMap.ELEVATORKEY, -0.8, RobotMap.ELEVATORSTAYUPSPEED, 2.8));
+      	addSequential(new MechSysToLimit(RobotMap.ELEVATORKEY, -0.65, RobotMap.ELEVATORSTAYUPSPEED, SysPosition.Top));
     	addSequential(new Timeout(0.1));
-    	addSequential(new MechDistanceGyroDrive(0.0035, 0.000035, 0.0065,  5, 135, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 5));
+    	addSequential(new MechDistanceGyroDrive(0.0035, 0.000037, 0.0065,  5, 140 /*200cm*/, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 4));
     	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.4, 2));
     	addSequential(new MechTimedGyroDrive(0.3, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 0.8,false));
-
     }
 }

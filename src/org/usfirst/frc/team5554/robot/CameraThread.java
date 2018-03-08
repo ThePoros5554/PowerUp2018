@@ -19,18 +19,56 @@ public class CameraThread extends Thread
 	@Override	
 	public void run()
 	{		
-//		CameraServer.getInstance().startAutomaticCapture();
 		/******************************Streaming Objects*******************************************/
-	
+		int liveCamera = 0;
+		
+		boolean ignoreSwitch = false;
+		boolean ignoreClimb = false;
+
+		
 		CameraHandler cameras = new CameraHandler(RobotMap.NUMBER_OF_CAMERAS,320,240);
 		VideoBox screen = new VideoBox("Live Feed" , 320 , 240);
 		
 		cameras.SetStreamer(0);
-
 				
 		/******************************The Thread Main body***************************************/
 		while (!Thread.interrupted()) 
 		{
+
+				
+				
+				if(joy.getRawButton(RobotMap.SWITCHCAMERABUTTON) && ignoreSwitch == false)
+				{
+					ignoreSwitch = true;
+
+					if(liveCamera == RobotMap.FORWARDCAMERA)
+					{
+						liveCamera = RobotMap.CUBECAMERA;
+					}
+					else
+					{
+						liveCamera = RobotMap.FORWARDCAMERA;
+					}
+				}
+				else if(!joy.getRawButton(RobotMap.SWITCHCAMERABUTTON))
+				{
+					ignoreSwitch = false;
+				}
+				
+				//climb
+				if(joy.getRawButton(RobotMap.CLIMBCAMERABUTTON) && ignoreClimb == false)
+				{
+					ignoreClimb = true;
+
+					liveCamera = RobotMap.CLIMBCAMERA;
+					
+				}
+				else if(!joy.getRawButton(RobotMap.CLIMBCAMERABUTTON))
+				{
+					ignoreClimb = false;
+				}
+				
+				cameras.SetStreamer(liveCamera);
 				
 				Stream stream = cameras.GetStream();
 				
@@ -43,7 +81,6 @@ public class CameraThread extends Thread
 				{
 					screen.stream(stream.GetImage());
 				}
-
 		}
 	}
 	

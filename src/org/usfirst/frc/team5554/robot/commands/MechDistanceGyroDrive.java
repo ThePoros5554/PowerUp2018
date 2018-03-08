@@ -119,9 +119,7 @@ public class MechDistanceGyroDrive extends Command {
     {
         double angle;
         double output;
-        
-        System.out.println("sp: sp: " + this.gyroSetPoint);
-        
+                
         if(this.driveTrain.IsReversed() == true)
         {
         	angle = (this.gyroSetPoint - gyro.getAngle()) * (-this.gyroKP);

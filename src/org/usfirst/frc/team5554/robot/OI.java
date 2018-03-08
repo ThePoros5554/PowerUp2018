@@ -75,8 +75,8 @@ public class OI
 		cancellSwitchesButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.CANCELLSWITCHESBUTTON);
 		enableSwitchesButton = new JoystickButton(RobotManager.GetSystemsJoy(), RobotMap.ENABLESWITCHESBUTTON);
 				
-		elevatorUp = new ActivateMechSys(RobotMap.ELEVATORKEY, this.elevatorUpAxis, RobotMap.ELEVATORSTAYUPSPEED);
-		elevatorDown = new ActivateMechSys(RobotMap.ELEVATORKEY, this.elevatorDownAxis, RobotMap.ELEVATORSTAYUPSPEED);
+		elevatorUp = new ActivateMechSys(RobotMap.ELEVATORKEY, RobotMap.ELEVATORUPSPEEDCONST, RobotMap.ELEVATORSTAYUPSPEED);
+		elevatorDown = new ActivateMechSys(RobotMap.ELEVATORKEY, RobotMap.ELEVATORDOWNSPEEDCONST, RobotMap.ELEVATORSTAYUPSPEED);
 		feederAxisUp = new ActivateMechSys(RobotMap.FEEDERAXISKEY, RobotMap.FEEDERAXISUPSPEED);
 		feederAxisDown = new ActivateMechSys(RobotMap.FEEDERAXISKEY, RobotMap.FEEDERAXISDOWNSPEED);
 		climbUp = new ActivateMechSys(RobotMap.CLIMBKEY, RobotMap.CLIMBUPSPEED);

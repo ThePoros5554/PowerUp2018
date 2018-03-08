@@ -93,7 +93,7 @@ public class Robot extends TimedRobot
 //		pot = new AnalogPotentiometer(3, 1000000);
 		
 //		elevator.SetLimitSwitch(RobotMap.ELEVATORSWITCHES);
-		this.elevator.SetLimitSwitch(RobotMap.ELEVATORBOTTOM);
+		this.elevator.SetLimitSwitch(RobotMap.ELEVATORSWITCHES);
 		this.climb.SetLimitSwitch(RobotMap.CLIMBTOPSWITCH);
 		this.feeder.SetLimitSwitch(RobotMap.FEEDERSWITCH);
 		this.feederAxis.SetLimitSwitch(RobotMap.FEEDERAXISSWITCH);
@@ -127,7 +127,7 @@ public class Robot extends TimedRobot
     	
 		autoChooser = new AutonomusChooser();
 
-		streamer = new CameraThread(RobotManager.GetSystemsJoy());
+		streamer = new CameraThread(RobotManager.GetDriveJoy());
 		streamer.setDaemon(true);
 		streamer.start();
 //		CameraServer.getInstance().startAutomaticCapture();
@@ -192,7 +192,7 @@ public class Robot extends TimedRobot
 		Scheduler.getInstance().run();
 
 //		System.out.println("Forward:  " + RobotMap.FORWARDENCODER.getDistance());
-		System.out.println(gyro.getAngle());
+//		System.out.println(gyro.getAngle());
 //		System.out.println("Side:    " + RobotMap.SIDEENCODER.getDistance());
 
 		if((full_game - (current_time - start_time)/1000000 > 0))
@@ -218,7 +218,7 @@ public class Robot extends TimedRobot
 		RobotManager.GetGyro().reset();
 
 		
-		RobotMap.SIDEENCODER.reset();
+		RobotMap.FORWARDENCODER.reset();
 		
 		Long fpgaTime = RobotController.getFPGATime();
 		this.start_time = fpgaTime.intValue();
@@ -238,7 +238,7 @@ public class Robot extends TimedRobot
 //		System.out.println("dasdasd  " + RobotMap.ELEVATORSWITCHES.GetPosition());
 //		System.out.println("dasdasd  " + RobotMap.CLIMBTOPSWITCH.GetPosition());
 		
-//		System.out.println("Forward:  " + RobotMap.FORWARDENCODER.getDistance());
+		System.out.println("Forward:  " + RobotMap.FORWARDENCODER.getDistance());
 //		System.out.println("Gyro:  "+ gyro.getAngle());
 //		System.out.println("Side:  " + RobotMap.SIDEENCODER.getDistance());
 		
