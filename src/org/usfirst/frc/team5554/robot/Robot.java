@@ -8,7 +8,6 @@
 package org.usfirst.frc.team5554.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.RobotController;
@@ -49,7 +48,7 @@ public class Robot extends TimedRobot
 	
 	private int start_time;
 	private int current_time;
-	private int full_game = 150; 
+	private int full_game = 135; 
 
 	@Override
 	public void robotInit() 
@@ -82,17 +81,12 @@ public class Robot extends TimedRobot
 		RobotManager.SetSpeedAxis(RobotMap.SPEEDAXIS);
 		RobotManager.SetRotateAxis(RobotMap.ROTATEAXIS);
 		RobotManager.SetTwistAxis(RobotMap.TWISTAXIS);
-		RobotManager.GetDriveTrain().SetMinSpeedValue(0.1);
-		RobotManager.GetDriveTrain().SetMinRotateValue(0.1);
-		((MechDriveTrain) RobotManager.GetDriveTrain()).SetMinTwistValue(0.15);	
 		RobotManager.GetDriveTrain().SetIsReversed(false);
-		
-		RobotMap.FORWARDENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
-		RobotMap.SIDEENCODER.setDistancePerPulse(RobotMap.ENCODERDISTANCEPERPULSE);
+		RobotMap.FORWARDENCODER.setDistancePerPulse(RobotMap.ENCODERFORWARDDISTANCEPERPULSE);
+		RobotMap.SIDEENCODER.setDistancePerPulse(RobotMap.ENCODERSIDEDISTANCEPERPULSE);
 		
 //		pot = new AnalogPotentiometer(3, 1000000);
 		
-//		elevator.SetLimitSwitch(RobotMap.ELEVATORSWITCHES);
 		this.elevator.SetLimitSwitch(RobotMap.ELEVATORSWITCHES);
 		this.climb.SetLimitSwitch(RobotMap.CLIMBTOPSWITCH);
 		this.feeder.SetLimitSwitch(RobotMap.FEEDERSWITCH);
@@ -102,14 +96,14 @@ public class Robot extends TimedRobot
 		
 		((MechDriveTrain) RobotManager.GetDriveTrain()).SetPIDOutput(MechPidAction.PidTurnInPlace);
     	PIDAction turn30Right = new PIDAction(RobotMap.TURN30P, RobotMap.TURN30I, RobotMap.TURN30D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
-    	turn30Right.SetInputRange(0, 30);
-    	turn30Right.SetSetPoint(30);
+    	turn30Right.SetInputRange(0, 37.5);
+    	turn30Right.SetSetPoint(37.5);
     	turn30Right.SetPercentTolerance(5);
     	RobotManager.AddPIDAction(RobotMap.TURN30RIGHTKEY, turn30Right);
     	
     	PIDAction turn30Left = new PIDAction(RobotMap.TURN30P, RobotMap.TURN30I, RobotMap.TURN30D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
-    	turn30Left.SetInputRange(-30, 0);
-    	turn30Left.SetSetPoint(-30);
+    	turn30Left.SetInputRange(-37.5, 0);
+    	turn30Left.SetSetPoint(-37.5);
     	turn30Left.SetPercentTolerance(5);
     	RobotManager.AddPIDAction(RobotMap.TURN30LEFTKEY, turn30Left);
     	
@@ -125,12 +119,35 @@ public class Robot extends TimedRobot
     	turn90Left.SetPercentTolerance(5);
     	RobotManager.AddPIDAction(RobotMap.TURN90LEFTKEY, turn90Left);
     	
+    	PIDAction turn120Right = new PIDAction(RobotMap.TURN100P, RobotMap.TURN100I, RobotMap.TURN100D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn120Right.SetInputRange(0, 118.5);
+    	turn120Right.SetSetPoint(118.5);
+    	turn120Right.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN120RIGHTKEY, turn120Right);
+    	
+    	PIDAction turn120Left = new PIDAction(RobotMap.TURN100P, RobotMap.TURN100I, RobotMap.TURN100D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn120Left.SetInputRange(-118.5,0);
+    	turn120Left.SetSetPoint(-118.5);
+    	turn120Left.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN120LEFTKEY, turn120Left);
+    	
+    	PIDAction turn150Right = new PIDAction(RobotMap.TURN150P, RobotMap.TURN150I, RobotMap.TURN150D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn150Right.SetInputRange(0, 142.5);
+    	turn150Right.SetSetPoint(142.5);
+    	turn150Right.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN150RIGHTKEY, turn150Right);
+    	
+    	PIDAction turn150Left = new PIDAction(RobotMap.TURN150P, RobotMap.TURN150I, RobotMap.TURN150D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn150Left.SetInputRange(-142.5,0);
+    	turn150Left.SetSetPoint(-142.5);
+    	turn150Left.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN150LEFTKEY, turn150Left);
+    	
 		autoChooser = new AutonomusChooser();
 
 		streamer = new CameraThread(RobotManager.GetDriveJoy());
 		streamer.setDaemon(true);
 		streamer.start();
-//		CameraServer.getInstance().startAutomaticCapture();
 		
 	}
 
@@ -152,11 +169,13 @@ public class Robot extends TimedRobot
 	@Override
 	public void disabledPeriodic() 
 	{
+		SmartDashboard.putNumber("Gyro ", RobotManager.GetGyro().getAngle());
 	}
 
 	@Override
 	public void autonomousInit() 
 	{	    	
+		((MechSys)RobotManager.GetSubsystem(RobotMap.CLIMBKEY)).Activate(0);
 		RobotManager.GetDriveTrain().SetMaxOutput(1);
 		RobotManager.GetGyro().reset();
 		gameData =  DriverStation.getInstance().getGameSpecificMessage();
@@ -192,7 +211,7 @@ public class Robot extends TimedRobot
 		Scheduler.getInstance().run();
 
 //		System.out.println("Forward:  " + RobotMap.FORWARDENCODER.getDistance());
-//		System.out.println(gyro.getAngle());
+		System.out.println(gyro.getAngle());
 //		System.out.println("Side:    " + RobotMap.SIDEENCODER.getDistance());
 
 		if((full_game - (current_time - start_time)/1000000 > 0))
@@ -208,6 +227,8 @@ public class Robot extends TimedRobot
 	@Override
 	public void teleopInit() 
 	{
+		((MechSys)RobotManager.GetSubsystem(RobotMap.CLIMBKEY)).Activate(0);
+
 		if(this.autoSelected != null)
 		{
 			this.autoSelected.cancel();
@@ -219,6 +240,8 @@ public class Robot extends TimedRobot
 
 		
 		RobotMap.FORWARDENCODER.reset();
+		RobotMap.SIDEENCODER.reset();
+
 		
 		Long fpgaTime = RobotController.getFPGATime();
 		this.start_time = fpgaTime.intValue();
@@ -240,7 +263,7 @@ public class Robot extends TimedRobot
 		
 		System.out.println("Forward:  " + RobotMap.FORWARDENCODER.getDistance());
 //		System.out.println("Gyro:  "+ gyro.getAngle());
-//		System.out.println("Side:  " + RobotMap.SIDEENCODER.getDistance());
+		System.out.println("Side:  " + RobotMap.SIDEENCODER.getDistance());
 		
 		
 		if(full_game - (current_time - start_time)/1000000 >= 0)
