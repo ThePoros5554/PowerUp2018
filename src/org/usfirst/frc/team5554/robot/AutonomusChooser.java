@@ -1,9 +1,12 @@
 package org.usfirst.frc.team5554.robot;
 
+import org.usfirst.frc.team5554.robot.commands.Center_2Cube_Switch_ToLeft;
+import org.usfirst.frc.team5554.robot.commands.Center_2Cube_Switch_ToRight;
 import org.usfirst.frc.team5554.robot.commands.Center_Switch_ToLeft;
 import org.usfirst.frc.team5554.robot.commands.Center_Switch_ToRight;
 import org.usfirst.frc.team5554.robot.commands.Forward;
 import org.usfirst.frc.team5554.robot.commands.Left_2Cube_Both_ToLeft;
+import org.usfirst.frc.team5554.robot.commands.Left_2Cube_Both_ToRight;
 import org.usfirst.frc.team5554.robot.commands.Left_2Cube_Scale_ToLeft;
 import org.usfirst.frc.team5554.robot.commands.Left_2Cube_Scale_ToRight;
 import org.usfirst.frc.team5554.robot.commands.Left_Scale_ToLeft;
@@ -47,6 +50,9 @@ public class AutonomusChooser {
 		LLautoChooser.addObject("Right_2Cube_Scale_ToRight", "Right_2Cube_Scale_ToRight");
 		LLautoChooser.addObject("Right_2Cube_Both_ToRight", "Right_2Cube_Both_ToRight");
 		LLautoChooser.addObject("Left_2Cube_Scale_ToRight", "Left_2Cube_Scale_ToRight");
+		LLautoChooser.addObject("Left_2Cube_Both_ToRight", "Left_2Cube_Both_ToRight");
+		LLautoChooser.addObject("Center_2Cube_Switch_ToRight", "Center_2Cube_Switch_ToRight");
+		LLautoChooser.addObject("Center_2Cube_Switch_ToLeft", "Center_2Cube_Switch_ToLeft");
 		LLautoChooser.addObject("Forward", "Forward");
 
 		SmartDashboard.putData("LLautoChooser", LLautoChooser);
@@ -67,7 +73,9 @@ public class AutonomusChooser {
 		LRautoChooser.addObject("Right_2Cube_Scale_ToRight", "Right_2Cube_Scale_ToRight");
 		LRautoChooser.addObject("Right_2Cube_Both_ToRight", "Right_2Cube_Both_ToRight");
 		LRautoChooser.addObject("Left_2Cube_Scale_ToRight", "Left_2Cube_Scale_ToRight");
-
+		LRautoChooser.addObject("Left_2Cube_Both_ToRight", "Left_2Cube_Both_ToRight");
+		LRautoChooser.addObject("Center_2Cube_Switch_ToRight", "Center_2Cube_Switch_ToRight");
+		LRautoChooser.addObject("Center_2Cube_Switch_ToLeft", "Center_2Cube_Switch_ToLeft");
 		LRautoChooser.addObject("Forward", "Forward");
 
 		SmartDashboard.putData("LRautoChooser", LRautoChooser);
@@ -88,7 +96,9 @@ public class AutonomusChooser {
 		RLautoChooser.addObject("Right_2Cube_Scale_ToRight", "Right_2Cube_Scale_ToRight");
 		RLautoChooser.addObject("Right_2Cube_Both_ToRight", "Right_2Cube_Both_ToRight");
 		RLautoChooser.addObject("Left_2Cube_Scale_ToRight", "Left_2Cube_Scale_ToRight");
-
+		RLautoChooser.addObject("Left_2Cube_Both_ToRight", "Left_2Cube_Both_ToRight");
+		RLautoChooser.addObject("Center_2Cube_Switch_ToRight", "Center_2Cube_Switch_ToRight");
+		RLautoChooser.addObject("Center_2Cube_Switch_ToLeft", "Center_2Cube_Switch_ToLeft");
 		RLautoChooser.addObject("Forward", "Forward");
 
 		SmartDashboard.putData("RLautoChooser", RLautoChooser);
@@ -109,6 +119,9 @@ public class AutonomusChooser {
 		RRautoChooser.addObject("Right_2Cube_Scale_ToRight", "Right_2Cube_Scale_ToRight");
 		RRautoChooser.addObject("Right_2Cube_Both_ToRight", "Right_2Cube_Both_ToRight");
 		RRautoChooser.addObject("Left_2Cube_Scale_ToRight", "Left_2Cube_Scale_ToRight");
+		RRautoChooser.addObject("Left_2Cube_Both_ToRight", "Left_2Cube_Both_ToRight");
+		RRautoChooser.addObject("Center_2Cube_Switch_ToRight", "Center_2Cube_Switch_ToRight");
+		RRautoChooser.addObject("Center_2Cube_Switch_ToLeft", "Center_2Cube_Switch_ToLeft");
 		RRautoChooser.addObject("Forward", "Forward");
 
 
@@ -214,6 +227,18 @@ public class AutonomusChooser {
 			case "Left_2Cube_Scale_ToRight":
 				
 				return new Left_2Cube_Scale_ToRight();
+				
+			case "Left_2Cube_Both_ToRight":
+				
+				return new Left_2Cube_Both_ToRight();
+				
+			case "Center_2Cube_Switch_ToRight":
+				
+				return new Center_2Cube_Switch_ToRight();
+				
+			case "Center_2Cube_Switch_ToLeft":
+				
+				return new Center_2Cube_Switch_ToLeft();
 				
 			case "Forward":
 				

@@ -1,4 +1,5 @@
 /*----------------------------------------------------------------------------*/
+
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -122,8 +123,14 @@ public class RobotMap
 	public final static String TURN150RIGHTKEY = "TURN150RIGHTKEY";
 	public final static String TURN150LEFTKEY = "TURN150LEFTKEY";
 	public static final double TURN150P = 0.0065;
-	public static final double TURN150I = 0.0001;
+	public static final double TURN150I = 0.00018;
 	public static final double TURN150D = 0.05;
+	
+	public final static String TURN45RIGHTKEY = "TURN45RIGHTKEY";
+	public final static String TURN45LEFTKEY = "TURN45LEFTKEY";
+	public static final double TURN45P = 0.0083;
+	public static final double TURN45I = 0.00046;
+	public static final double TURN45D = 0.007;
 
 	
     public final static SPI.Port GYRO_PORT  = SPI.Port.kOnboardCS0;
@@ -136,10 +143,10 @@ public class RobotMap
     public final static LimitSwitch FEEDERAXISSWITCH = new LimitSwitch(8, SysPosition.Top, false);
     public final static LimitSwitch FEEDERSWITCH = new LimitSwitch(9, SysPosition.Top, false);
 	
-    public static final int NUMBER_OF_CAMERAS = 2;
+    public static final int NUMBER_OF_CAMERAS = 3;
 	public static final int CLIMBCAMERA = 0;
-	public static final int FORWARDCAMERA = 0;
-	public static final int CUBECAMERA = 1;
+	public static final int FORWARDCAMERA = 1;
+	public static final int CUBECAMERA = 2;
 	public static final int CLIMBCAMERABUTTON = 11;
 	public static final int SWITCHCAMERABUTTON = 6;
 	

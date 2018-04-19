@@ -132,16 +132,28 @@ public class Robot extends TimedRobot
     	RobotManager.AddPIDAction(RobotMap.TURN120LEFTKEY, turn120Left);
     	
     	PIDAction turn150Right = new PIDAction(RobotMap.TURN150P, RobotMap.TURN150I, RobotMap.TURN150D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
-    	turn150Right.SetInputRange(0, 142.5);
-    	turn150Right.SetSetPoint(142.5);
+    	turn150Right.SetInputRange(0, 136);
+    	turn150Right.SetSetPoint(136);
     	turn150Right.SetPercentTolerance(5);
     	RobotManager.AddPIDAction(RobotMap.TURN150RIGHTKEY, turn150Right);
     	
     	PIDAction turn150Left = new PIDAction(RobotMap.TURN150P, RobotMap.TURN150I, RobotMap.TURN150D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
-    	turn150Left.SetInputRange(-142.5,0);
-    	turn150Left.SetSetPoint(-142.5);
+    	turn150Left.SetInputRange(-136,0);
+    	turn150Left.SetSetPoint(-136);
     	turn150Left.SetPercentTolerance(5);
     	RobotManager.AddPIDAction(RobotMap.TURN150LEFTKEY, turn150Left);
+    	
+    	PIDAction turn45Right = new PIDAction(RobotMap.TURN45P, RobotMap.TURN45I, RobotMap.TURN45D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn45Right.SetInputRange(0, 35);
+    	turn45Right.SetSetPoint(35);
+    	turn45Right.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN45RIGHTKEY, turn45Right);
+    	
+    	PIDAction turn45Left = new PIDAction(RobotMap.TURN45P, RobotMap.TURN45I, RobotMap.TURN45D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
+    	turn45Left.SetInputRange(-35,0);
+    	turn45Left.SetSetPoint(-35);
+    	turn45Left.SetPercentTolerance(5);
+    	RobotManager.AddPIDAction(RobotMap.TURN45LEFTKEY, turn45Left);
     	
 		autoChooser = new AutonomusChooser();
 
