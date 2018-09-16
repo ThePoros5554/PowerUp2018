@@ -23,7 +23,7 @@ public class Left_2Cube_Scale_ToLeft extends CommandGroup {
       	addParallel(new MechSysToLimit(RobotMap.ELEVATORKEY, -1, RobotMap.ELEVATORSTAYUPSPEED, SysPosition.Top));
     	addSequential(new RunPIDAction(RobotMap.TURN30RIGHTKEY));
     	addSequential(new MechDistanceGyroDrive(0.0057, 0.000035, 0.008,  5, 100 /*200cm*/, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 3));
-    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.8,0.2));
+    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.5,0.35));
     	addSequential(new MechDistanceGyroDrive(0.015, 0.00003, 0.008,  5, -30 /*200cm*/, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward));
     	addSequential(new Timeout(0.2));
     	addSequential(new RunPIDAction(RobotMap.TURN120RIGHTKEY));
@@ -35,17 +35,12 @@ public class Left_2Cube_Scale_ToLeft extends CommandGroup {
     	addSequential(new MechTimedGyroDrive(0.25, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 0.7));
     	
     	addParallel(new MechSysToLimit(RobotMap.ELEVATORKEY, -1, RobotMap.ELEVATORSTAYUPSPEED, SysPosition.Top));
-    	addSequential(new MechDistanceGyroDrive(0.0059, 0.0000825, 0.0075,  5, -125 /*200cm*/, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 4));
+    	addSequential(new MechDistanceGyroDrive(0.0059, 0.0000825, 0.0075,  5, -117.5 /*200cm*/, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 4));
         addSequential(new RunPIDAction(RobotMap.TURN120LEFTKEY));
     	addSequential(new Timeout(0.15));
     	addParallel(new TimedMechSys(RobotMap.FEEDERAXISKEY, -0.5, 1));
     	addSequential(new MechTimedGyroDrive(-0.25, false,  RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 0.3));
-    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.3,2));
+    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.325,2));
     	addSequential(new MechTimedGyroDrive(0.25, false,  RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 0.75));
-
-
-
-        
-
     }
 }

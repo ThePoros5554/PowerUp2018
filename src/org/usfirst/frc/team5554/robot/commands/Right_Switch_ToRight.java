@@ -16,7 +16,7 @@ public class Right_Switch_ToRight extends CommandGroup {
 
     public Right_Switch_ToRight() 
     {
-    	addParallel(new TimedMechSys(RobotMap.FEEDERAXISKEY, 0.5,1.2));
+    	addParallel(new TimedMechSys(RobotMap.FEEDERAXISKEY, 0.5,1.3));
     	addSequential(new MechDistanceGyroDrive(0.005, 0, 0.02,  RobotMap.PERCENTTOLERANCE, 348, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 5));
     	addSequential(new Timeout(0.2));
         addSequential(new RunPIDAction(RobotMap.TURN90LEFTKEY));

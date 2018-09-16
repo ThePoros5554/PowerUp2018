@@ -16,7 +16,7 @@ public class Left_Scale_ToRight extends CommandGroup {
 
     public Left_Scale_ToRight()
     {
-    	addSequential(new MechDistanceGyroDrive(0.00405, 0, 0.015,  RobotMap.PERCENTTOLERANCE, 521.5, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 5));
+    	addSequential(new MechDistanceGyroDrive(0.00405, 0, 0.015,  RobotMap.PERCENTTOLERANCE, 524.5, RobotMap.FORWARDENCODER, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 5));
         addSequential(new RunPIDAction(RobotMap.TURN90RIGHTKEY));
     	addSequential(new MechDistanceGyroDrive(0.004, 0, 0.015,  RobotMap.PERCENTTOLERANCE, 512, RobotMap.FORWARDENCODER, 89, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 4));
         addSequential(new RunPIDAction(RobotMap.TURN90LEFTKEY));

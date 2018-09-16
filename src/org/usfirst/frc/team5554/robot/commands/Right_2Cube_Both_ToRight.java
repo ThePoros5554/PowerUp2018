@@ -23,7 +23,7 @@ public class Right_2Cube_Both_ToRight extends CommandGroup {
       	addParallel(new MechSysToLimit(RobotMap.ELEVATORKEY, -1, RobotMap.ELEVATORSTAYUPSPEED, SysPosition.Top));
     	addSequential(new RunPIDAction(RobotMap.TURN30LEFTKEY));
     	addSequential(new MechDistanceGyroDrive(0.0057, 0.000035, 0.008,  5, 100 /*200cm*/, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 3));
-    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.8,0.2));
+    	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.5,0.35));
     	addSequential(new MechDistanceGyroDrive(0.015, 0.00003, 0.008,  5, -30 /*200cm*/, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward));
     	addSequential(new Timeout(0.2));
     	addSequential(new RunPIDAction(RobotMap.TURN120LEFTKEY));

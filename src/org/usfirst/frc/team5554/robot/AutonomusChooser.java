@@ -35,17 +35,17 @@ public class AutonomusChooser {
 	public AutonomusChooser()
 	{
 		LLautoChooser.addDefault("LL:", "LL:");
-//		LLautoChooser.addObject("Center_Switch_ToRight", "Center_Switch_ToRight");
-//		LLautoChooser.addObject("Center_Switch_ToLeft", "Center_Switch_ToLeft");
+		LLautoChooser.addObject("Center_Switch_ToRight", "Center_Switch_ToRight");
+		LLautoChooser.addObject("Center_Switch_ToLeft", "Center_Switch_ToLeft");
 //		LLautoChooser.addObject("Left_Scale_ToLeft", "Left_Scale_ToLeft");
 		LLautoChooser.addObject("Left_Switch_ToLeft", "Left_Switch_ToLeft");
-//		LLautoChooser.addObject("Left_Scale_ToRight", "Left_Scale_ToRight");
+		LLautoChooser.addObject("Left_Scale_ToRight", "Left_Scale_ToRight");
 //		LLautoChooser.addObject("Left_Switch_ToRight", "Left_Switch_ToRight");
 		LLautoChooser.addObject("Left_2Cube_Scale_ToLeft", "Left_2Cube_Scale_ToLeft");
 		LLautoChooser.addObject("Left_2Cube_Both_ToLeft", "Left_2Cube_Both_ToLeft");
 //		LLautoChooser.addObject("Right_Scale_ToRight", "Right_Scale_ToRight");
 		LLautoChooser.addObject("Right_Switch_ToRight", "Right_Switch_ToRight");
-//		LLautoChooser.addObject("Right_Scale_ToLeft", "Right_Scale_ToLeft");
+		LLautoChooser.addObject("Right_Scale_ToLeft", "Right_Scale_ToLeft");
 //		LLautoChooser.addObject("Right_Switch_ToLeft", "Right_Switch_ToLeft");
 		LLautoChooser.addObject("Right_2Cube_Scale_ToRight", "Right_2Cube_Scale_ToRight");
 		LLautoChooser.addObject("Right_2Cube_Both_ToRight", "Right_2Cube_Both_ToRight");
@@ -58,18 +58,18 @@ public class AutonomusChooser {
 		SmartDashboard.putData("LLautoChooser", LLautoChooser);
 		
 		LRautoChooser.addDefault("LR:", "LR:");
-//		LRautoChooser.addObject("Center_Switch_ToRight", "Center_Switch_ToRight");
-//		LRautoChooser.addObject("Center_Switch_ToLeft", "Center_Switch_ToLeft");
+		LRautoChooser.addObject("Center_Switch_ToRight", "Center_Switch_ToRight");
+		LRautoChooser.addObject("Center_Switch_ToLeft", "Center_Switch_ToLeft");
 //		LRautoChooser.addObject("Left_Scale_ToLeft", "Left_Scale_ToLeft");
 		LRautoChooser.addObject("Left_Switch_ToLeft", "Left_Switch_ToLeft");
-//		LRautoChooser.addObject("Left_Scale_ToRight", "Left_Scale_ToRight");
+		LRautoChooser.addObject("Left_Scale_ToRight", "Left_Scale_ToRight");
 //		LRautoChooser.addObject("Left_Switch_ToRight", "Left_Switch_ToRight");
 		LRautoChooser.addObject("Left_2Cube_Scale_ToLeft", "Left_2Cube_Scale_ToLeft");
 		LRautoChooser.addObject("Left_2Cube_Both_ToLeft", "Left_2Cube_Both_ToLeft");
 //		LRautoChooser.addObject("Right_Scale_ToRight", "Right_Scale_ToRight");
 		LRautoChooser.addObject("Right_Switch_ToRight", "Right_Switch_ToRight");
 //		LRautoChooser.addObject("Right_Scale_ToLeft", "Right_Scale_ToLeft");
-//		LRautoChooser.addObject("Right_Switch_ToLeft", "Right_Switch_ToLeft");
+		LRautoChooser.addObject("Right_Switch_ToLeft", "Right_Switch_ToLeft");
 		LRautoChooser.addObject("Right_2Cube_Scale_ToRight", "Right_2Cube_Scale_ToRight");
 		LRautoChooser.addObject("Right_2Cube_Both_ToRight", "Right_2Cube_Both_ToRight");
 		LRautoChooser.addObject("Left_2Cube_Scale_ToRight", "Left_2Cube_Scale_ToRight");
@@ -81,17 +81,17 @@ public class AutonomusChooser {
 		SmartDashboard.putData("LRautoChooser", LRautoChooser);
 		
 		RLautoChooser.addDefault("RL:", "RL:");
-//		RLautoChooser.addObject("Center_Switch_ToRight", "Center_Switch_ToRight");
-//		RLautoChooser.addObject("Center_Switch_ToLeft", "Center_Switch_ToLeft");
+		RLautoChooser.addObject("Center_Switch_ToRight", "Center_Switch_ToRight");
+		RLautoChooser.addObject("Center_Switch_ToLeft", "Center_Switch_ToLeft");
 //		RLautoChooser.addObject("Left_Scale_ToLeft", "Left_Scale_ToLeft");
 		RLautoChooser.addObject("Left_Switch_ToLeft", "Left_Switch_ToLeft");
-//		RLautoChooser.addObject("Left_Scale_ToRight", "Left_Scale_ToRight");
+		RLautoChooser.addObject("Left_Scale_ToRight", "Left_Scale_ToRight");
 //		RLautoChooser.addObject("Left_Switch_ToRight", "Left_Switch_ToRight");
 		RLautoChooser.addObject("Left_2Cube_Scale_ToLeft", "Left_2Cube_Scale_ToLeft");
 		RLautoChooser.addObject("Left_2Cube_Both_ToLeft", "Left_2Cube_Both_ToLeft");
 //		RLautoChooser.addObject("Right_Scale_ToRight", "Right_Scale_ToRight");
 		RLautoChooser.addObject("Right_Switch_ToRight", "Right_Switch_ToRight");
-//		RLautoChooser.addObject("Right_Scale_ToLeft", "Right_Scale_ToLeft");
+		RLautoChooser.addObject("Right_Scale_ToLeft", "Right_Scale_ToLeft");
 //		RLautoChooser.addObject("Right_Switch_ToLeft", "Right_Switch_ToLeft");
 		RLautoChooser.addObject("Right_2Cube_Scale_ToRight", "Right_2Cube_Scale_ToRight");
 		RLautoChooser.addObject("Right_2Cube_Both_ToRight", "Right_2Cube_Both_ToRight");
@@ -104,17 +104,17 @@ public class AutonomusChooser {
 		SmartDashboard.putData("RLautoChooser", RLautoChooser);
 		
 		RRautoChooser.addDefault("RR:", "RR:");
-//		RRautoChooser.addObject("Center_Switch_ToRight", "Center_Switch_ToRight");
-//		RRautoChooser.addObject("Center_Switch_ToLeft", "Center_Switch_ToLeft");
+		RRautoChooser.addObject("Center_Switch_ToRight", "Center_Switch_ToRight");
+		RRautoChooser.addObject("Center_Switch_ToLeft", "Center_Switch_ToLeft");
 //		RRautoChooser.addObject("Left_Scale_ToLeft", "Left_Scale_ToLeft");
 		RRautoChooser.addObject("Left_Switch_ToLeft", "Left_Switch_ToLeft");
-//		RRautoChooser.addObject("Left_Scale_ToRight", "Left_Scale_ToRight");
+		RRautoChooser.addObject("Left_Scale_ToRight", "Left_Scale_ToRight");
 //		RRautoChooser.addObject("Left_Switch_ToRight", "Left_Switch_ToRight");
 		RRautoChooser.addObject("Left_2Cube_Scale_ToLeft", "Left_2Cube_Scale_ToLeft");
 		RRautoChooser.addObject("Left_2Cube_Both_ToLeft", "Left_2Cube_Both_ToLeft");
 //		RRautoChooser.addObject("Right_Scale_ToRight", "Right_Scale_ToRight");
 		RRautoChooser.addObject("Right_Switch_ToRight", "Right_Switch_ToRight");
-//		RRautoChooser.addObject("Right_Scale_ToLeft", "Right_Scale_ToLeft");
+		RRautoChooser.addObject("Right_Scale_ToLeft", "Right_Scale_ToLeft");
 //		RRautoChooser.addObject("Right_Switch_ToLeft", "Right_Switch_ToLeft");
 		RRautoChooser.addObject("Right_2Cube_Scale_ToRight", "Right_2Cube_Scale_ToRight");
 		RRautoChooser.addObject("Right_2Cube_Both_ToRight", "Right_2Cube_Both_ToRight");

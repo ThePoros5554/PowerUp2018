@@ -120,14 +120,14 @@ public class Robot extends TimedRobot
     	RobotManager.AddPIDAction(RobotMap.TURN90LEFTKEY, turn90Left);
     	
     	PIDAction turn120Right = new PIDAction(RobotMap.TURN100P, RobotMap.TURN100I, RobotMap.TURN100D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
-    	turn120Right.SetInputRange(0, 118.5);
-    	turn120Right.SetSetPoint(118.5);
+    	turn120Right.SetInputRange(0, 117.5);
+    	turn120Right.SetSetPoint(117.5);
     	turn120Right.SetPercentTolerance(5);
     	RobotManager.AddPIDAction(RobotMap.TURN120RIGHTKEY, turn120Right);
     	
     	PIDAction turn120Left = new PIDAction(RobotMap.TURN100P, RobotMap.TURN100I, RobotMap.TURN100D, (PIDSource) RobotManager.GetGyro(), (MechDriveTrain)RobotManager.GetDriveTrain());
-    	turn120Left.SetInputRange(-118.5,0);
-    	turn120Left.SetSetPoint(-118.5);
+    	turn120Left.SetInputRange(-117.5,0);
+    	turn120Left.SetSetPoint(-117.5);
     	turn120Left.SetPercentTolerance(5);
     	RobotManager.AddPIDAction(RobotMap.TURN120LEFTKEY, turn120Left);
     	

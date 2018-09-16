@@ -21,11 +21,11 @@ public class Center_2Cube_Switch_ToLeft extends CommandGroup {
     	addSequential(new MechTimedGyroDrive(-0.6, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 0.25));
     	addSequential(new MechDistanceGyroDrive(0.1, 0.0000, 0.1,  5, -137, RobotMap.SIDEENCODER, RobotMap.FORWARDENCODER, RobotMap.FIXGYROKP, 0, RobotMap.FORWARDGYROKP, MechDrivingDirection.Sideways));
     	addParallel(new TimedMechSys(RobotMap.FEEDERAXISKEY, 0.5,2));
-    	addParallel((new TimedMechSys(RobotMap.ELEVATORKEY, -0.7, RobotMap.ELEVATORSTAYUPSPEED, 1.5)));    
-    	addSequential(new MechDistanceGyroDrive(0.0042, 0.000065, 0.007,  5, 260, RobotMap.FORWARDENCODER,0, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 2.7));
+    	addParallel((new TimedMechSys(RobotMap.ELEVATORKEY, -0.7, RobotMap.ELEVATORSTAYUPSPEED, 1.5)));
+    	addSequential(new MechTimedGyroDrive(-0.2, 0,  RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 2.3));
+//    	addSequential(new MechDistanceGyroDrive(0.0042, 0.000065, 0.007,  5, 260, RobotMap.FORWARDENCODER,0, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 2.7));
     	addSequential(new TimedMechSys(RobotMap.FEEDERKEY, -0.5,0.25));
-    	addSequential(new Timeout(1));
-    	addSequential(new MechDistanceGyroDrive(0.012, 0.000055, 0.1,  5, -165 /*200cm*/, RobotMap.FORWARDENCODER,false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 4));
+    	addSequential(new MechDistanceGyroDrive(0.012, 0.000055, 0.1,  5, -165 /*200cm*/, RobotMap.FORWARDENCODER,0, RobotMap.FORWARDGYROKP, MechDrivingDirection.Forward, 4));
         addSequential(new RunPIDAction(RobotMap.TURN45RIGHTKEY));
     	addSequential(new MechDistanceGyroDrive(0.051, 0.0000, 0.1,  5, 40, RobotMap.SIDEENCODER, RobotMap.FORWARDENCODER, RobotMap.FIXGYROKP, false, RobotMap.FORWARDGYROKP, MechDrivingDirection.Sideways, 1));
     	addSequential(new MechSysToLimit(RobotMap.ELEVATORKEY, 0.7, 0, SysPosition.Bottom));
